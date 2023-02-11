@@ -1,0 +1,86 @@
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* transition: all 1s ease-in-out; */
+}
+
+.modal_content {
+  width: 500px;
+  background-color: #fff;
+}
+.modal_body {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.modal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  /* border-bottom: 1px solid #ddd; */
+}
+.modal_footer {
+  display: flex;
+  padding: 10px 10px;
+}
+
+.form__input {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+.form__input_last {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+.form__input input,
+.form__input_last input {
+  outline: 0;
+  border: 0;
+  padding: 4px 0 0;
+  font-size: 16px;
+}
+.modal_button {
+  margin: 10px 10px 10px 0;
+  background: none;
+  border: 1px solid #000;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.modal_button:hover {
+  background-color: #e91e63;
+  color: #ddd;
+  border: 1px solid #e91e63;
+}
+.close_icon {
+  cursor: pointer;
+  color: gray;
+}
+.close_icon :hover {
+  color: #000;
+}
+.form__input label,
+.form__input_last label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: #e91e63;
+  transition: 0.3s;
+}

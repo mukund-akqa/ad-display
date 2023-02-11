@@ -1,0 +1,52 @@
+.page {
+  flex: 4;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+  background-color: #fff;
+}
+.page_container {
+  margin: 62px 20px;
+}
+.page_title {
+  font-size: 32px;
+}
+.page_details {
+  padding-left: 40px;
+}
+.table_data,
+.table_head {
+  border: 1px solid #000;
+  text-align: left;
+  padding: 12px 8px;
+  font-size: 16px;
+  text-align: center;
+}
+.table_data_url {
+  width: 40%;
+  border: 1px solid #000;
+  text-align: center;
+  padding: 12px 8px;
+  font-size: 14px;
+}
+.table_heading {
+  font-size: 20px;
+}
+.button {
+  border: 1px solid #000;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #fff;
+}
+.button:hover {
+  color: crimson;
+}
+.icon {
+  border: none;
+  margin-right: 10px;
+  background: none;
+  font-weight: bold;
+  cursor: pointer;
+}

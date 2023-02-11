@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+.header {
+  background-color: #24262b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-family: "Montserrat", sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.header_brand {
+  display: flex;
+}
+.header_brand_text {
+  color: #edf0f1;
+  font-size: 25px;
+  margin-top: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.header_brand_logo {
+  width: 50px;
+  height: 50px;
+}
+.nav_links,
+.nav_text {
+  font-weight: 500;
+  font-size: 16px;
+  color: #edf0f1;
+  text-decoration: none;
+}
+
+.nav_links {
+  list-style-type: none;
+}
+.nav_links_expanded {
+  display: none;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 77px);
+  background-color: white;
+}
+.nav_links li {
+  display: inline-block;
+  padding: 10px 20px;
+}
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+.nav_links li a:hover {
+  color: #e91e63;
+  background-color: #edf0f1;
+}
+.hamburgerMenu {
+  display: none;
+  color: #edf0f1;
+}
+
+@media screen and (max-width: 768px) {
+  .hamburgerMenu {
+    display: block;
+    font-size: 1.9rem;
+    top: 20px;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
+    transform: translate(-100%, 75%);
+  }
+  .nav_links {
+    display: none;
+  }
+  .nav_links_expanded {
+    display: block;
+  }
+
+  .nav_links_expanded li {
+    text-align: center;
+    padding: 20px;
+    margin: 0px;
+    list-style-type: none;
+  }
+  .nav_links_expanded li a {
+    color: #24262b;
+    width: 100%;
+    padding: 1.5rem 0;
+    text-align: center;
+  }
+  .nav_links_expanded li:hover {
+    background-color: #eee;
+  }
+}
