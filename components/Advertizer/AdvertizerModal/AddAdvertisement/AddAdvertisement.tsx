@@ -16,9 +16,6 @@ const AddAdvertisement = ({
   campaignName,
   onClose,
 }: AddAdvertisementProps) => {
-  if (!addModal) {
-    return null;
-  }
   const [adId, setAdId] = useState("");
   const [assetType, setAssetType] = useState("");
   const [assetUrl, setAssetUrl] = useState("");
@@ -30,6 +27,10 @@ const AddAdvertisement = ({
   const hiddenFileInput = useRef<HTMLInputElement>(null!);
 
   const [file, setFile] = useState<any>();
+  if (!addModal) {
+    return null;
+  }
+
   const selectFile = (e: any) => {
     e.preventDefault();
     setFile(e.target.files[0]);

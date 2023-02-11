@@ -7,7 +7,7 @@ import Sidebar from "../../../../components/Sidebar/Sidebar";
 
 import styles from "./page.module.css";
 
-const index = () => {
+const Index = () => {
   const router = useRouter();
   return (
     <>
@@ -25,4 +25,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
