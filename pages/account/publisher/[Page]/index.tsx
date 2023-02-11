@@ -10,7 +10,7 @@ import styles from './page.module.css'
 
 
 const index = () => {
-    const router=useRouter()
+    const router= useRouter()
   return (
     <>
     <Header/>
