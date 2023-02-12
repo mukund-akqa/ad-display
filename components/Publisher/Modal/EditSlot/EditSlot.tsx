@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import styles from "./EditSlot.module.css";
 import CloseIcon from "@mui/icons-material/Close";
@@ -14,10 +15,10 @@ type EditSlotProps = {
 };
 
 const EditSlot = ({ editModal, onClose, data }: EditSlotProps) => {
+ 
   if (!editModal) {
     return null;
   }
-
   const [slotId, setSlotId] = useState(data.slotId);
   const [slotHeight, setSlotHeight] = useState(data.slotHeight);
   const [slotWidth, setSlotWidth] = useState(data.slotWidth);

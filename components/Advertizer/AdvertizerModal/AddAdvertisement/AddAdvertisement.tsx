@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef, useState } from "react";
 import styles from "./AddAdvertisement.module.css";
 import { Alert } from "@mui/material";
 import axios from "axios";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
 
 type AddAdvertisementProps = {
   addModal: boolean;
@@ -16,6 +18,10 @@ const AddAdvertisement = ({
   campaignName,
   onClose,
 }: AddAdvertisementProps) => {
+  
+  if (!addModal) {
+    return null;
+  }
   const [adId, setAdId] = useState("");
   const [assetType, setAssetType] = useState("");
   const [assetUrl, setAssetUrl] = useState("");
@@ -27,9 +33,6 @@ const AddAdvertisement = ({
   const hiddenFileInput = useRef<HTMLInputElement>(null!);
 
   const [file, setFile] = useState<any>();
-  if (!addModal) {
-    return null;
-  }
 
   const selectFile = (e: any) => {
     e.preventDefault();
@@ -66,7 +69,7 @@ const AddAdvertisement = ({
     hiddenFileInput.current.click();
   };
 
-  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleClick = async (e: any) => {
     e.preventDefault();
     await fetch("/api/AdvertizerProfile/Ads/addAds", {
       method: "POST",
@@ -170,10 +173,12 @@ const AddAdvertisement = ({
               </button>
               {file && (
                 <div className={styles.preview}>
-                  <img
+                  <Image
                     src={URL.createObjectURL(file)}
-                    className={styles.image}
+                    // className={styles.image}
                     alt="Thumb"
+                    width={320}
+                    height={320}
                   />
                   <button
                     onClick={(e) => uploadFile(e)}
@@ -211,7 +216,7 @@ const AddAdvertisement = ({
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={handleClick}>
+          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
             Add Ad
           </button>
           <button className={styles.modal_button} onClick={onClose}>

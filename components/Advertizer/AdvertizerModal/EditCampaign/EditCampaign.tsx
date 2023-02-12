@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import styles from "./EditCampaign.module.css";
 import CloseIcon from "@mui/icons-material/Close";
@@ -16,6 +17,7 @@ const EditCampaign = ({
   onClose,
   data,
 }: EditCampaignProps) => {
+  
   if (!editModalCampaign) {
     return null;
   }

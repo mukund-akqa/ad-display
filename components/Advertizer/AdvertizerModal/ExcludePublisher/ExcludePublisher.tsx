@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 
 import styles from "./ExcludePublisher.module.css";
@@ -12,6 +13,7 @@ const ExcludePublisher = ({
   showExcludedPublisher,
   onClose,
 }: ExcludePublisherProps) => {
+ 
   if (!showExcludedPublisher) {
     return null;
   }

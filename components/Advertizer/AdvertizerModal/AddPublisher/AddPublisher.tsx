@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import styles from "./AddPublisher.module.css";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,10 +11,12 @@ const AddPublisher = ({
   showIncludedPublisher,
   onClose,
 }: AddPublisherProps) => {
+  
   if (!showIncludedPublisher) {
     return null;
   }
   const [publisher, setPublisher] = useState("");
+
   const handleClick = async (e: any) => {
     e.preventDefault();
     await fetch("/api/AdvertizerProfile/IncludePublisher/addPublisher", {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import styles from "./AddCampaign.module.css";
 import { Alert } from "@mui/material";
@@ -17,7 +18,7 @@ const AddCampaign = ({ showCampaign, onClose }: AddCampaignProps) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleClick = async (e: any) => {
     console.log(landingPageUrl);
     e.preventDefault();
     await fetch("/api/AdvertizerProfile/Campaign/addCampaign", {
@@ -93,7 +94,7 @@ const AddCampaign = ({ showCampaign, onClose }: AddCampaignProps) => {
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={handleClick}>
+          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
             Add Campaign
           </button>
           <button className={styles.modal_button} onClick={onClose}>

@@ -20,7 +20,7 @@ const Header = () => {
       }
       
       console.log(auth)
-    })
+    },[])
     const handleLogout = () =>{
       sessionStorage.removeItem("login")
     }

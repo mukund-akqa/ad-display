@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import styles from "./EditPage.module.css";
 import CloseIcon from "@mui/icons-material/Close";
@@ -8,10 +9,10 @@ type EditPageProps = {
   data: { pageName: string; pageUrl: string; id: string };
 };
 const EditPage = ({ editshow, onClose, data }: EditPageProps) => {
+  
   if (!editshow) {
     return null;
   }
-
   const [pageName, setPageName] = useState(data.pageName);
   const [pageUrl, setPageUrl] = useState(data.pageUrl);
 

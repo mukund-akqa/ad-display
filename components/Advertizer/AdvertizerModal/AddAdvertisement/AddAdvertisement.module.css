@@ -104,6 +104,6 @@
   flex-direction: column;
 }
 .image {
-  max-width: 100%;
+  width: 400px;
   max-height: 320px;
 }

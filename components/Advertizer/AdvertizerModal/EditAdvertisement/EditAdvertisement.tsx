@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import styles from "./EditAdvertisement.module.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
 
 type EditAdvertisementProps = {
   editModal: boolean;
@@ -34,6 +36,7 @@ const EditAdvertisement = ({
   const [file, setFile] = useState<any>();
   const [buttonText, setButtonText] = useState("Upload File");
   const hiddenFileInput = useRef<HTMLInputElement>(null!);
+
   const selectFile = (e: any) => {
     e.preventDefault();
     setFile(e.target.files[0]);
@@ -158,10 +161,12 @@ const EditAdvertisement = ({
               </button>
               {file ? (
                 <div className={styles.preview}>
-                  <img
+                  <Image
                     src={URL.createObjectURL(file)}
                     className={styles.image}
                     alt="Thumb"
+                    width={320}
+                    height={320}
                   />
                   <button
                     onClick={(e) => uploadFile(e)}

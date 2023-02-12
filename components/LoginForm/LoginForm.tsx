@@ -59,7 +59,6 @@ const LoginForm = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              
             />
           </div>
           <div className={styles.form__input}>
@@ -78,7 +77,7 @@ const LoginForm = () => {
           </button>
         </form>
         <p>
-          Don't have an account?{" "}
+          Do not have an account?{" "}
           <Link href="/register" className={styles.form__sign}>
             Sign Up
           </Link>

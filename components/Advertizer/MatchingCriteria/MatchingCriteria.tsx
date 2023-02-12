@@ -103,8 +103,8 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
         <tbody>
           {props.heading === "Include Publisher" ? (
             <>
-              {includePublishers.map((item) => (
-                <tr>
+              {includePublishers.map((item,id) => (
+                <tr key={id}>
                   <td className={styles.table_data}>{item}</td>
                   <td className={styles.table_data}>
                     <button className={styles.icon} onClick={()=>deleteIncludePublisher(item)}>
@@ -116,8 +116,8 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
             </>
           ) : (
             <>
-            {excludePublishers.map((item) => (
-              <tr>
+            {excludePublishers.map((item,id) => (
+              <tr key={id}>
                 <td className={styles.table_data}>{item}</td>
                 <td className={styles.table_data}>
                   <button className={styles.icon} onClick={()=>deleteExcludePublisher(item)}>
