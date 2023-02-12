@@ -96,7 +96,7 @@ const EditSlot = ({ editModal, onClose, data }: EditSlotProps) => {
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={handleClick}>
+          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
             Add Slot
           </button>
           <button className={styles.modal_button} onClick={onClose}>

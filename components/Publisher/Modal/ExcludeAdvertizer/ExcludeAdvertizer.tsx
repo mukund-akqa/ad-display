@@ -63,7 +63,7 @@ const ExcludeAdvertizer = ({
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={handleClick}>
+          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
             Exclude
           </button>
           <button className={styles.modal_button} onClick={onClose}>
