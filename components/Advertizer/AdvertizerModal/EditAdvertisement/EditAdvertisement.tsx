@@ -177,7 +177,13 @@ const EditAdvertisement = ({
                 </div>
               ) : (
                 <div className={styles.preview}>
-                  <img src={assetUrl} className={styles.image} alt="Thumb" />
+                  <Image
+                    src={assetUrl}
+                    // className={styles.image}
+                    alt="Thumb"
+                    width={320}
+                    height={320}
+                  />
                   <button
                     onClick={(e) => uploadFile(e)}
                     className={styles.modal_button}

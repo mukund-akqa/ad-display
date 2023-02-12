@@ -20,7 +20,7 @@ const AddPage = ({ show, onClose }: AddPageProps) => {
     return null;
   }
 
-  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleClick = async (e: any) => {
     e.preventDefault();
     await fetch("/api/PublisherProfile/Webpages/addPage", {
       method: "POST",
@@ -93,7 +93,7 @@ const AddPage = ({ show, onClose }: AddPageProps) => {
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={handleClick}>
+          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
             Add Page
           </button>
           <button className={styles.modal_button} onClick={onClose}>
