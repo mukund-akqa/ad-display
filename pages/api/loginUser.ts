@@ -23,7 +23,7 @@ type query = {
 
 }
 const bcrypt = require('bcrypt');
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
   const { email, password } = req.body.data;
   console.log(email);
   

@@ -16,7 +16,7 @@ type query = {
   ref: any;
 };
 const bcrypt = require('bcrypt');
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
   const { name, email, password, phone, siteName } = req.body.data;
   const hashPassword = await bcrypt.hash(password, 10);
   let query: query = await faunaClient.query(

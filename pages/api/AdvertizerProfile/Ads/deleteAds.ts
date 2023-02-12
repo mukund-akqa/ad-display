@@ -15,7 +15,7 @@ const s3 = new S3({
   secretAccessKey: process.env.SECRET_KEY,
   signatureVersion: "v4",
 });
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { refId, adId, campaignName, assetUrl } = req.body.data;
   console.log("asseturl", assetUrl);
   const bucketkey = assetUrl.split("amazonaws.com/")[1];

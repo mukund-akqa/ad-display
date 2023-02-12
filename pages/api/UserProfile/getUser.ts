@@ -10,7 +10,7 @@ type doc = {
   data: any;
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
   try {
     const { refId } = req.body.data;
     // let doc :doc = await faunaClient.query(

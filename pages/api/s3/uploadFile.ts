@@ -9,7 +9,7 @@ const s3 = new S3({
   signatureVersion: "v4",
 });
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(req: NextApiRequest, res: NextApiResponse)  {
   try {
     let { name, type } = req.body;
     const unique_id = uuid();
