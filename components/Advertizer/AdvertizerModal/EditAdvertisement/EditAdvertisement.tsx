@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./EditAdvertisement.module.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -101,6 +101,9 @@ const EditAdvertisement = ({
 
     onClose();
   };
+  useEffect(() => {
+    console.log("assetUrl", assetUrl);
+  });
   return (
     <div className={styles.modal} onClick={onClose}>
       <div
@@ -166,7 +169,7 @@ const EditAdvertisement = ({
                     className={styles.image}
                     alt="Thumb"
                     width={320}
-                    height={320}
+                    height={220}
                   />
                   <button
                     onClick={(e) => uploadFile(e)}
@@ -182,7 +185,7 @@ const EditAdvertisement = ({
                     // className={styles.image}
                     alt="Thumb"
                     width={320}
-                    height={320}
+                    height={220}
                   />
                   <button
                     onClick={(e) => uploadFile(e)}

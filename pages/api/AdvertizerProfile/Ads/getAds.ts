@@ -11,14 +11,18 @@ type doc = {
 };
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
   const { refId, campaignName } = req.body.data;
-//   console.log(campaignName);
+  // console.log(campaignName);
 
   let doc: doc = await faunaClient.query(
     q.Get(q.Ref(q.Collection("demo_collection"), refId))
   );
+  // console.log("doc",doc)
 
   let adsData = doc.data.advertizerProfile.campaigns;
+  console.log("adsData",adsData)
   let obj = adsData.find((x: any) => x.campaignName == campaignName);
+  // console.log("obj",obj)
+
   
 //   console.log(obj.ads);
 

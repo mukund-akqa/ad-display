@@ -178,7 +178,7 @@ const AddAdvertisement = ({
                     // className={styles.image}
                     alt="Thumb"
                     width={320}
-                    height={320}
+                    height={220}
                   />
                   <button
                     onClick={(e) => uploadFile(e)}

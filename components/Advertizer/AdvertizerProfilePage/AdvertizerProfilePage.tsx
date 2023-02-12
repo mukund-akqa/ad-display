@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import AddAdvertisement from "../AdvertizerModal/AddAdvertisement/AddAdvertisement";
 import styles from "./AdvertizerProfilePage.module.css";
@@ -75,21 +76,28 @@ const AdvertizerProfilePage = ({
     })
   }
   useEffect(() => {
-    fetch("/api/AdvertizerProfile/Ads/getAds", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: {
-          refId: sessionStorage.getItem("refId"),
-          campaignName: campaignName,
+    
+    const fetchData= async ()=>{
+      await fetch("/api/AdvertizerProfile/Ads/getAds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-    })
-      .then((data) => data.json())
-      .then((data) => setAdData(data.adsData));
-  });
+        body: JSON.stringify({
+          data: {
+            refId: sessionStorage.getItem("refId"),
+            campaignName: campaignName,
+          },
+        }),
+      })
+        .then((data) => data.json())
+        .then((data) => setAdData(data.adsData));
+    } 
+    const timer =setTimeout(()=>{
+      fetchData()
+    },1000)
+    return ()=>clearTimeout(timer)
+  },[campaignName]);
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
