@@ -32,13 +32,12 @@ const AdvertizerProfilePage = ({
     assetType: "",
     assetUrl: "",
     assetHeight: "",
-    assetWidth:"",
-    campaignName:"",
-    id:"",
-    
+    assetWidth: "",
+    campaignName: "",
+    id: "",
   });
 
-  const deleteAd = async(adId:string,assetUrl:string) =>{
+  const deleteAd = async (adId: string, assetUrl: string) => {
     console.log("dleete exclude");
     await fetch("/api/AdvertizerProfile/Ads/deleteAds", {
       method: "POST",
@@ -49,7 +48,7 @@ const AdvertizerProfilePage = ({
         data: {
           adId: adId,
           campaignName: campaignName,
-          assetUrl:assetUrl,
+          assetUrl: assetUrl,
           refId: sessionStorage.getItem("refId"),
         },
       }),
@@ -61,23 +60,29 @@ const AdvertizerProfilePage = ({
         // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
-  }
+  };
 
-  const editAd = (adId:string,assetType:string,assetUrl:string,assetHeight:string,assetWidth:string,id:string) => {
-    setEditModal(true)
+  const editAd = (
+    adId: string,
+    assetType: string,
+    assetUrl: string,
+    assetHeight: string,
+    assetWidth: string,
+    id: string
+  ) => {
+    setEditModal(true);
     setEditData({
-        adId,
-        assetType,
-        assetUrl,
-        assetHeight,
-        assetWidth,
-        campaignName,
-        id
-    })
-  }
+      adId,
+      assetType,
+      assetUrl,
+      assetHeight,
+      assetWidth,
+      campaignName,
+      id,
+    });
+  };
   useEffect(() => {
-    
-    const fetchData= async ()=>{
+    const fetchData = async () => {
       await fetch("/api/AdvertizerProfile/Ads/getAds", {
         method: "POST",
         headers: {
@@ -92,12 +97,12 @@ const AdvertizerProfilePage = ({
       })
         .then((data) => data.json())
         .then((data) => setAdData(data.adsData));
-    } 
-    const timer =setTimeout(()=>{
-      fetchData()
-    },1000)
-    return ()=>clearTimeout(timer)
-  },[campaignName]);
+    };
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [adData]);
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
@@ -132,10 +137,25 @@ const AdvertizerProfilePage = ({
                     <td className={styles.table_data}>{item.assetHeight}</td>
                     <td className={styles.table_data}>{item.assetWidth}</td>
                     <td className={styles.table_data}>
-                      <button onClick={() => deleteAd(item.adId,item.assetUrl)} className={styles.icon}>
+                      <button
+                        onClick={() => deleteAd(item.adId, item.assetUrl)}
+                        className={styles.icon}
+                      >
                         <DeleteIcon />
                       </button>
-                      <button className={styles.icon} onClick={() => editAd(item.adId,item.assetType,item.assetUrl,item.assetHeight,item.assetWidth,id.toString())}>
+                      <button
+                        className={styles.icon}
+                        onClick={() =>
+                          editAd(
+                            item.adId,
+                            item.assetType,
+                            item.assetUrl,
+                            item.assetHeight,
+                            item.assetWidth,
+                            id.toString()
+                          )
+                        }
+                      >
                         <EditIcon />
                       </button>
                     </td>
@@ -157,7 +177,6 @@ const AdvertizerProfilePage = ({
             onClose={() => setEditModal(false)}
             data={editData}
           />
-          
         </div>
       </div>
     </div>
