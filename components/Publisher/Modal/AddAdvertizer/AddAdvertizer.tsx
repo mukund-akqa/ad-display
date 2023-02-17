@@ -6,9 +6,10 @@ import CloseIcon from "@mui/icons-material/Close";
 type AddAdvertizerProps = {
   showAdvertizer: boolean;
   onClose: any;
+  Includedata :any 
 };
 
-const AddAdvertizer = ({ showAdvertizer, onClose }: AddAdvertizerProps) => {
+const AddAdvertizer = ({ showAdvertizer, onClose, Includedata}: AddAdvertizerProps) => {
   const [advertizer, setAdvertizer] = useState("");
   if (!showAdvertizer) {
     return null;
@@ -30,6 +31,7 @@ const AddAdvertizer = ({ showAdvertizer, onClose }: AddAdvertizerProps) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        Includedata(true)
       });
     onClose();
   };

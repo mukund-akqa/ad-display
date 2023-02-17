@@ -27,6 +27,7 @@ const AdvertizerProfilePage = ({
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [adData, setAdData] = useState([]);
+  const [dataUpdated, setDataUpdated] = useState(false);
   const [editData, setEditData] = useState({
     adId: "",
     assetType: "",
@@ -36,7 +37,9 @@ const AdvertizerProfilePage = ({
     campaignName: "",
     id: "",
   });
-
+  const addata = (value: boolean) => {
+    setDataUpdated(value);
+  };
   const deleteAd = async (adId: string, assetUrl: string) => {
     console.log("dleete exclude");
     await fetch("/api/AdvertizerProfile/Ads/deleteAds", {
@@ -54,10 +57,11 @@ const AdvertizerProfilePage = ({
       }),
     })
       .then((res) => {
-        // res.json().then((data) => {
-        //   setTableData(data.updatedData);
-        // });
+        res.json().then((data) => {
+          setAdData(data.updatedData)
+        });
         // mutate("/api/getPage");
+        
       })
       .catch((e) => console.log(e));
   };
@@ -97,12 +101,13 @@ const AdvertizerProfilePage = ({
       })
         .then((data) => data.json())
         .then((data) => setAdData(data.adsData));
+      setDataUpdated(false);
     };
     const timer = setTimeout(() => {
       fetchData();
-    }, 1000);
+    }, 2000);
     return () => clearTimeout(timer);
-  }, [adData]);
+  }, [dataUpdated]);
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
@@ -171,11 +176,13 @@ const AdvertizerProfilePage = ({
             addModal={addModal}
             onClose={() => setAddModal(false)}
             campaignName={campaignName}
+            addata={addata}
           />
           <EditAdvertisement
             editModal={editModal}
             onClose={() => setEditModal(false)}
             data={editData}
+            addata={addata}
           />
         </div>
       </div>

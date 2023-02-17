@@ -18,12 +18,14 @@ type EditAdvertisementProps = {
     campaignName: string;
     id: string;
   };
+  addata:any
 };
 
 const EditAdvertisement = ({
   editModal,
   onClose,
   data,
+  addata
 }: EditAdvertisementProps) => {
   if (!editModal) {
     return null;
@@ -97,6 +99,7 @@ const EditAdvertisement = ({
       .then((data) => {
         console.log(data);
         setFile(null);
+        addata(true)
       });
 
     onClose();

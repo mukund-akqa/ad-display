@@ -49,5 +49,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
   );
   // console.log(doc)
-  res.status(200).json({ updatedData: pageData });
+  res.status(200).json({ updatedData: updatedData });
 };

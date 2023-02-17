@@ -3,7 +3,7 @@ import { faunaClient } from "../../../../lib/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
-  name?: string;
+  campaign?:any
   error?:string
 };
 
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     landingPageUrl: landingPageUrl,
     ads: [],
   };
-  console.log(campaignDetails);
+  // console.log(campaignDetails);
   let oldData = doc.data.advertizerProfile.campaigns;
   let obj = oldData.find((x: any) => x.campaignName == campaignName);
   if (obj) {
@@ -38,6 +38,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         },
       })
     );
-    res.status(200).json({ name: "John Doe" });
+    res.status(200).json({ campaign: oldData });
   }
 };

@@ -1,6 +1,6 @@
 import { style } from "@mui/system";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AddCampaign from "../AdvertizerModal/AddCampaign/AddCampaign";
 import MatchingCriteria from "../MatchingCriteria/MatchingCriteria";
 import styles from "./AdvertizerProfile.module.css";
@@ -9,20 +9,23 @@ import EditIcon from "@mui/icons-material/Edit";
 import EditCampaign from "../AdvertizerModal/EditCampaign/EditCampaign";
 
 type item = {
-  campaignName: string;
-  landingPageUrl: string;
+  campaignName: any;
+  landingPageUrl: any;
 };
 
 const AdvertizerProfile = () => {
   const [showCampaign, setShowCampaign] = useState(false);
   const [campaignData, setCampaignData] = useState([]);
+  const [dataUpdated, setDataUpdated] = useState(false);
   const [editModalCampaign, setEditModalCampaign] = useState(false);
   const [editData, setEditData] = useState({
     campaignName: "",
     landingPageUrl: "",
     id: "",
   });
-
+  const campdata = (value: boolean) => {
+    setDataUpdated(value);
+  };
   const deleteCampaign = async (campaignName: string) => {
     console.log(campaignName);
     await fetch("/api/AdvertizerProfile/Campaign/deleteCampaign", {
@@ -71,8 +74,13 @@ const AdvertizerProfile = () => {
       }),
     })
       .then((data) => data.json())
-      .then((data) => setCampaignData(data.CampaignData));
-  }, [campaignData]);
+      .then((data) => {
+        // console.log("data:", data.CampaignData);
+        setCampaignData(data.CampaignData);
+        setDataUpdated(false);
+      });
+  }, [dataUpdated]);
+
   return (
     <div className={styles.profile}>
       <div className={styles.profile_container}>
@@ -95,7 +103,9 @@ const AdvertizerProfile = () => {
                 return (
                   <>
                     <tr>
-                      <td className={`${styles.table_data} ${styles.campaignName}`}>
+                      <td
+                        className={`${styles.table_data} ${styles.campaignName}`}
+                      >
                         <Link
                           href={{
                             pathname: `/account/advertizer/${linkUrl}`,
@@ -135,6 +145,7 @@ const AdvertizerProfile = () => {
                           editModalCampaign={editModalCampaign}
                           onClose={() => setEditModalCampaign(false)}
                           data={editData}
+                          campdata={campdata}
                         />
                       </td>
                     </tr>
@@ -152,6 +163,7 @@ const AdvertizerProfile = () => {
           <AddCampaign
             showCampaign={showCampaign}
             onClose={() => setShowCampaign(false)}
+            campdata={campdata}
           />
         </div>
         <div>

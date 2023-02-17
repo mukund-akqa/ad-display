@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   //   console.log("Indexx",index)
 
   const updatedData = obj.ads.filter((item: any) => item.adId != adId);
-  //   console.log("updated Data", updatedData);
+    // console.log("updated Data", updatedData);
 
   console.log(campaignData);
   //   console.log(obj.adSlots)
@@ -68,5 +68,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
   );
   // console.log(doc)
-  res.status(200).json({ updatedData: "" });
+  res.status(200).json({ updatedData: updatedData });
 };

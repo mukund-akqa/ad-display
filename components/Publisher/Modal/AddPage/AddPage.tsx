@@ -7,10 +7,11 @@ import CloseIcon from "@mui/icons-material/Close";
 type AddPageProps = {
   show: boolean;
   onClose: any;
+  pageData:any
   // error: boolean;
   // errorMessage: string;
 };
-const AddPage = ({ show, onClose }: AddPageProps) => {
+const AddPage = ({ show, onClose, pageData }: AddPageProps) => {
   const [pageName, setPageName] = useState("");
   const [pageUrl, setPageUrl] = useState("");
   const [error, setError] = useState(false);
@@ -38,6 +39,7 @@ const AddPage = ({ show, onClose }: AddPageProps) => {
       if (res.status === 200) {
         res.json().then((data) => {
           console.log(data);
+          pageData(true)
           onClose();
           setPageName("");
           setPageUrl("");

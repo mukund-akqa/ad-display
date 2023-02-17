@@ -7,9 +7,10 @@ import CloseIcon from "@mui/icons-material/Close";
 type AddCampaignProps = {
   showCampaign: boolean;
   onClose: any;
+  campdata:any
 };
 
-const AddCampaign = ({ showCampaign, onClose }: AddCampaignProps) => {
+const AddCampaign = ({ showCampaign, onClose, campdata }: AddCampaignProps) => {
   if (!showCampaign) {
     return null;
   }
@@ -36,7 +37,9 @@ const AddCampaign = ({ showCampaign, onClose }: AddCampaignProps) => {
     }).then((res) => {
       if (res.status === 200) {
         res.json().then((data) => {
-          console.log(data);
+          console.log("addData",data);
+          console.log(data.campaign)
+          campdata(true)
           onClose();
           setCampaignName("");
           setLandingPageUrl("");
@@ -94,7 +97,10 @@ const AddCampaign = ({ showCampaign, onClose }: AddCampaignProps) => {
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
+          <button
+            className={styles.modal_button}
+            onClick={(e) => handleClick(e)}
+          >
             Add Campaign
           </button>
           <button className={styles.modal_button} onClick={onClose}>

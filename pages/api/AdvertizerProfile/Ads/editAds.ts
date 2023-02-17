@@ -5,7 +5,7 @@ import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import S3 from "aws-sdk/clients/s3";
 
 type Data = {
-  name: string;
+  updatedData:any
 };
 
 type doc = {
@@ -63,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   ads[id] = ad_details;
 
   obj.ads = ads;
-  console.log(obj);
+  // console.log(obj);
   campaignData[objIndex] = obj;
 
   let query = await faunaClient.query(
@@ -84,5 +84,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 //   }
 // };
     
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).json({ updatedData: campaignData });
 };

@@ -11,10 +11,12 @@ type EditSlotProps = {
     slotWidth: string;
     id: string;
     pageName: string;
+    
   };
+  slotData:any
 };
 
-const EditSlot = ({ editModal, onClose, data }: EditSlotProps) => {
+const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
  
   if (!editModal) {
     return null;
@@ -45,6 +47,7 @@ const EditSlot = ({ editModal, onClose, data }: EditSlotProps) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        slotData(true)
       });
     onClose();
   };

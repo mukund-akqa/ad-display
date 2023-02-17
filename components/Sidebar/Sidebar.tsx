@@ -18,28 +18,28 @@ const Sidebar = () => {
                 icon={faChartLine}
                 className={styles.sidebar__container__menu__list__item__icon}
               />
-              <Link href='/account/dashboard'>Dashboard</Link>
+              <Link href="/account/dashboard">Dashboard</Link>
             </li>
             <li className={styles.sidebar__container__menu__list__item}>
               <FontAwesomeIcon
                 icon={faUser}
                 className={styles.sidebar__container__menu__list__item__icon}
               />
-              <Link href='/account/profile'>User Profile</Link>
+              <Link href="/account/profile">User Profile</Link>
             </li>
             <li className={styles.sidebar__container__menu__list__item}>
               <FontAwesomeIcon
                 icon={faAdversal}
                 className={styles.sidebar__container__menu__list__item__icon}
               />
-              <Link href='/account/publisher'>Publisher Profile</Link>
+              <Link href="/account/publisher">Publisher Profile</Link>
             </li>
             <li className={styles.sidebar__container__menu__list__item}>
               <FontAwesomeIcon
                 icon={faRectangleAd}
                 className={styles.sidebar__container__menu__list__item__icon}
               />
-              <Link href='/account/advertizer'>Advertiser Profile</Link>
+              <Link href="/account/advertizer">Advertiser Profile</Link>
             </li>
           </ul>
         </div>

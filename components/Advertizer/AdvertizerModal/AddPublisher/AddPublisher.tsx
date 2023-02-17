@@ -5,11 +5,13 @@ import CloseIcon from "@mui/icons-material/Close";
 type AddPublisherProps = {
   showIncludedPublisher: boolean;
   onClose: any;
+  Includedata:any
 };
 
 const AddPublisher = ({
   showIncludedPublisher,
   onClose,
+  Includedata
 }: AddPublisherProps) => {
   
   if (!showIncludedPublisher) {
@@ -30,11 +32,12 @@ const AddPublisher = ({
           publisher: publisher,
         },
       }),
-    });
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        Includedata(true)
+      });
     onClose();
   };
 

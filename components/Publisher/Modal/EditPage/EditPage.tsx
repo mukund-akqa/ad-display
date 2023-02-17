@@ -7,8 +7,9 @@ type EditPageProps = {
   editshow: boolean;
   onClose: any;
   data: { pageName: string; pageUrl: string; id: string };
+  pageData:any
 };
-const EditPage = ({ editshow, onClose, data }: EditPageProps) => {
+const EditPage = ({ editshow, onClose, data, pageData }: EditPageProps) => {
   
   if (!editshow) {
     return null;
@@ -36,6 +37,7 @@ const EditPage = ({ editshow, onClose, data }: EditPageProps) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        pageData(true)
       });
     onClose();
   };

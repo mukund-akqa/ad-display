@@ -28,17 +28,24 @@ const PublisherProfile = () => {
   const [tableData, setTableData] = useState([]);
   const [includeAdvertizers, setIncludeAdvertizers] = useState([]);
   const [excludeAdvertizers, setExcludeAdvertizers] = useState([]);
+  const [dataUpdated, setDataUpdated] = useState(false);
+  const [IncludedataUpdated, setIncludeDataUpdated] = useState(false);
+  const [ExcludedataUpdated, setExcludeDataUpdated] = useState(false);
 
-  const [showAddAdvertizer, setShowAddAdvertizer] = useState(false);
   const [editData, setEditData] = useState({
     pageName: "",
     pageUrl: "",
     id: "",
   });
-  const [editAddAdvertizerData, setEditAddAdvertizerData] = useState({
-    advertizer: "",
-  });
-
+  const pageData = (value: boolean) => {
+    setDataUpdated(value);
+  };
+  const Includedata = (value: boolean) => {
+    setIncludeDataUpdated(value);
+  };
+  const Excludedata = (value: boolean) => {
+    setExcludeDataUpdated(value);
+  };
   const handleAction = async (pageName: string) => {
     console.log(pageName);
     await fetch("/api/PublisherProfile/Webpages/deletePage", {
@@ -132,7 +139,8 @@ const PublisherProfile = () => {
     })
       .then((data) => data.json())
       .then((data) => setTableData(data.pageData));
-  }, [tableData]);
+    setDataUpdated(false);
+  }, [dataUpdated]);
   useEffect(() => {
     fetch("/api/PublisherProfile/IncludeAdvertizer/getIncludeAdvertizer", {
       method: "POST",
@@ -147,7 +155,8 @@ const PublisherProfile = () => {
     })
       .then((data) => data.json())
       .then((data) => setIncludeAdvertizers(data.pageData));
-  }, [includeAdvertizers]);
+    setIncludeDataUpdated(false);
+  }, [IncludedataUpdated]);
 
   useEffect(() => {
     fetch("/api/PublisherProfile/ExcludeAdvertizer/getExcludeAdvertizer", {
@@ -163,7 +172,8 @@ const PublisherProfile = () => {
     })
       .then((data) => data.json())
       .then((data) => setExcludeAdvertizers(data.pageData));
-  }, [excludeAdvertizers]);
+    setExcludeDataUpdated(false);
+  }, [ExcludedataUpdated]);
 
   return (
     <div className={styles.profile}>
@@ -227,6 +237,7 @@ const PublisherProfile = () => {
                       editshow={editshow}
                       onClose={() => setEditShow(false)}
                       data={editData}
+                      pageData={pageData}
                     />
                   </>
                 );
@@ -242,7 +253,11 @@ const PublisherProfile = () => {
           >
             Add Page
           </button>
-          <AddPage show={show} onClose={() => setShow(false)} />
+          <AddPage
+            show={show}
+            onClose={() => setShow(false)}
+            pageData={pageData}
+          />
         </div>
         <div>
           <p className={styles.table_heading}>Matching Criteria</p>
@@ -258,7 +273,7 @@ const PublisherProfile = () => {
               <tbody>
                 {includeAdvertizers.map((item, id) => (
                   <>
-                    <tr id={id.toString()}>
+                    <tr id={id.toString()} key={id}>
                       <td className={styles.table_data}>{item}</td>
                       <td className={styles.table_data}>
                         <button
@@ -287,6 +302,7 @@ const PublisherProfile = () => {
             <AddAdvertizer
               showAdvertizer={showAdvertizer}
               onClose={() => setShowAdvertizer(false)}
+              Includedata={Includedata}
             />
           </div>
           <div>
@@ -301,7 +317,7 @@ const PublisherProfile = () => {
               <tbody>
                 {excludeAdvertizers.map((item, id) => (
                   <>
-                    <tr id={id.toString()}>
+                    <tr id={id.toString()} key={id}>
                       <td className={styles.table_data}>{item}</td>
                       <td className={styles.table_data}>
                         <button
@@ -325,6 +341,7 @@ const PublisherProfile = () => {
             <ExcludeAdvertizer
               showExcludedAdvertizer={showExcludedAdvertizer}
               onClose={() => setShowExcludedAdvertizer(false)}
+              Excludedata={Excludedata}
             />
           </div>
         </div>

@@ -1,25 +1,25 @@
-import React from 'react'
-import AdvertizerProfile from '../../../components/Advertizer/AdvertizerProfile/AdvertizerProfile'
+import React from "react";
+import AdvertizerProfile from "../../../components/Advertizer/AdvertizerProfile/AdvertizerProfile";
 
-import Footer from '../../../components/Footer/Footer'
-import Header from '../../../components/Header/Header'
-import Sidebar from '../../../components/Sidebar/Sidebar'
+import Footer from "../../../components/Footer/Footer";
+import Header from "../../../components/Header/Header";
+import Sidebar from "../../../components/Sidebar/Sidebar";
 
-import styles from './advertizer.module.css'
+import styles from "./advertizer.module.css";
 
 const index = () => {
   return (
     <>
-    <Header/>
-    <div className={styles.wrapper}>
-        <Sidebar/>
+      <Header />
+      <div className={styles.wrapper}>
+        <Sidebar />
         {/* <Advertizer/> */}
         {/* <AdvertizerTable/> */}
         <AdvertizerProfile/>
-    </div>
-    <Footer/>
+      </div>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;

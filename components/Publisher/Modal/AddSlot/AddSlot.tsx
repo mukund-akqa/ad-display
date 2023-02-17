@@ -8,9 +8,10 @@ type AddSlotProps = {
   show: boolean;
   onClose: any;
   pageName: string;
+  slotData:any
 };
 
-const AddSlot = ({ show, onClose, pageName }: AddSlotProps) => {
+const AddSlot = ({ show, onClose, pageName, slotData }: AddSlotProps) => {
   const [slotId, setSlotId] = useState("");
   const [slotHeight, setSlotHeight] = useState("");
   const [slotWidth, setSlotWidth] = useState("");
@@ -41,6 +42,7 @@ const AddSlot = ({ show, onClose, pageName }: AddSlotProps) => {
       if (res.status === 200) {
         res.json().then((data) => {
           console.log(data);
+          slotData(true)
           onClose();
           setSlotId("");
           setSlotHeight("");

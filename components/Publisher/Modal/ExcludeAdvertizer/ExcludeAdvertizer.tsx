@@ -5,11 +5,13 @@ import CloseIcon from "@mui/icons-material/Close";
 type AddAdvertizerProps = {
   showExcludedAdvertizer: boolean;
   onClose: any;
+  Excludedata:any
 };
 
 const ExcludeAdvertizer = ({
   showExcludedAdvertizer,
   onClose,
+  Excludedata
 }: AddAdvertizerProps) => {
   const [advertizer, setAdvertizer] = useState("");
   if (!showExcludedAdvertizer) {
@@ -32,6 +34,7 @@ const ExcludeAdvertizer = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        Excludedata(true)
       });
     onClose();
   };

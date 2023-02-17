@@ -14,6 +14,14 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
   const [showExcludedPublisher,setShowExcludedPublisher] = useState(false)
   const [includePublishers, setIncludePublishers] = useState([]);
   const [excludePublishers, setExcludePublishers] = useState([]);
+  const [IncludedataUpdated, setIncludeDataUpdated] = useState(false);
+  const [ExcludedataUpdated, setExcludeDataUpdated] = useState(false);
+  const Includedata = (value: boolean) => {
+    setIncludeDataUpdated(value);
+  };
+  const Excludedata = (value: boolean) => {
+    setExcludeDataUpdated(value);
+  };
 
   const deleteIncludePublisher = async(item:string) =>{
     console.log("dleete");
@@ -74,7 +82,8 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
     })
       .then((data) => data.json())
       .then((data) => setIncludePublishers(data.pageData));
-  }, [includePublishers]);
+      setIncludeDataUpdated(false);
+  }, [IncludedataUpdated]);
   useEffect(() => {
     fetch("/api/AdvertizerProfile/ExcludePublisher/getPublisher", {
       method: "POST",
@@ -89,7 +98,8 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
     })
       .then((data) => data.json())
       .then((data) => setExcludePublishers(data.pageData));
-  }, [excludePublishers]);
+      setExcludeDataUpdated(false)
+  }, [ExcludedataUpdated]);
   return (
     <div>
       <p>{props.heading}</p>
@@ -148,10 +158,13 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
       <AddPublisher
         showIncludedPublisher={showIncludedPublisher}
         onClose={() => setShowIncludedPublisher(false)}
+        Includedata={Includedata} 
+
       />
       <ExcludePublisher
         showExcludedPublisher={showExcludedPublisher}
         onClose={() => setShowExcludedPublisher(false)}
+        Excludedata={Excludedata}
       />
     </div>
   );

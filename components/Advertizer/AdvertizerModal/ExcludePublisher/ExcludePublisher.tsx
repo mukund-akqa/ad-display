@@ -7,11 +7,13 @@ import CloseIcon from "@mui/icons-material/Close";
 type ExcludePublisherProps = {
   showExcludedPublisher: boolean;
   onClose: any;
+  Excludedata:any
 };
 
 const ExcludePublisher = ({
   showExcludedPublisher,
   onClose,
+  Excludedata
 }: ExcludePublisherProps) => {
  
   if (!showExcludedPublisher) {
@@ -36,6 +38,7 @@ const ExcludePublisher = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        Excludedata(true)
       });
     onClose();
   };

@@ -22,6 +22,7 @@ const PublisherProfilePage = ({
 }: PublisherProfilePageProps) => {
   const [show, setShow] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [dataUpdated, setDataUpdated] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [editData, setEditData] = useState({
     slotId: "",
@@ -30,6 +31,9 @@ const PublisherProfilePage = ({
     id: "",
     pageName:""
   });
+  const slotData = (value: boolean) => {
+    setDataUpdated(value);
+  };
 
   const onDelete = async (slotId: string) => {
     console.log("dleete exclude");
@@ -85,7 +89,9 @@ const PublisherProfilePage = ({
     })
       .then((data) => data.json())
       .then((data) => setTableData(data.slotData));
-  });
+      setDataUpdated(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[dataUpdated]);
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
@@ -152,11 +158,13 @@ const PublisherProfilePage = ({
             show={show}
             onClose={() => setShow(false)}
             pageName={pageName}
+            slotData={slotData}
           />
           <EditSlot
             editModal={editModal}
             onClose={() => setEditModal(false)}
             data={editData}
+            slotData={slotData}
           />
         </div>
       </div>

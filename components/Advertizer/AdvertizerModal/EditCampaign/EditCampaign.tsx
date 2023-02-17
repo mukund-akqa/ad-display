@@ -10,12 +10,14 @@ type EditCampaignProps = {
     landingPageUrl: string;
     id: string;
   };
+  campdata:any
 };
 
 const EditCampaign = ({
   editModalCampaign,
   onClose,
   data,
+  campdata
 }: EditCampaignProps) => {
   
   if (!editModalCampaign) {
@@ -43,6 +45,7 @@ const EditCampaign = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        campdata(true)
       });
     onClose();
   };

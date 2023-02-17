@@ -11,14 +11,15 @@ type AddAdvertisementProps = {
   addModal: boolean;
   campaignName: string;
   onClose: any;
+  addata:any
 };
 
 const AddAdvertisement = ({
   addModal,
   campaignName,
   onClose,
+  addata
 }: AddAdvertisementProps) => {
-  
   if (!addModal) {
     return null;
   }
@@ -98,6 +99,7 @@ const AddAdvertisement = ({
           setAssetHeight("");
           setAssetWidth("");
           setFile(null);
+          addata(true)
         });
       } else {
         res.json().then((data) => {
@@ -216,7 +218,10 @@ const AddAdvertisement = ({
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
+          <button
+            className={styles.modal_button}
+            onClick={(e) => handleClick(e)}
+          >
             Add Ad
           </button>
           <button className={styles.modal_button} onClick={onClose}>
