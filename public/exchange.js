@@ -9,8 +9,8 @@ let scripts = document.getElementById("helper");
 let url = scripts.getAttribute("src", -1);
 let author = getURLParameter("name");
 let userId = getURLParameter("id");
-let AdSlots = getURLParameter("AdSlotID");
-const adArray = AdSlots.split(",");
+// let AdSlots = getURLParameter("AdSlotID");
+// const adArray = AdSlots.split(",");
 
 function getURLParameter(name) {
   return (
@@ -23,6 +23,22 @@ function getURLParameter(name) {
   );
 }
 
+let publisher = await client.query(
+  q.Get(q.Ref(q.Collection("demo_collection"), userId))
+);
+
+// console.log("publisher", publisher);
+let pathName = window.location.pathname;
+// console.log("pathName", window.location.pathname);
+let requiredPage = publisher.data.publisherProfile.pages.find(
+  (x) => x.pageUrl === pathName
+);
+let slotArray = [];
+let requiredSlots = requiredPage.adSlots.forEach((slot) => {
+  slotArray.push(slot.slotId);
+});
+// console.log("slotArray", slotArray);
+
 async function findAdvertisementForSlot(userID, AdSlot) {
   let campaignAndAdvt = [];
 
@@ -31,6 +47,7 @@ async function findAdvertisementForSlot(userID, AdSlot) {
     q.Get(q.Ref(q.Collection("demo_collection"), userID))
   );
   // console.log("P", p);
+
   for (let i in AdSlot) {
     campaignAndAdvt = await criteriaOne(p, AdSlot[i], i);
     // console.log(campaignAndAdvt);
@@ -50,7 +67,7 @@ async function findAdvertisementForSlot(userID, AdSlot) {
     // console.log(ImageSlot1);
   }
 }
-findAdvertisementForSlot(userId, adArray);
+findAdvertisementForSlot(userId, slotArray);
 
 async function criteriaOne(p, AdSlotId, i) {
   // console.log("inside criteria ONe");
