@@ -56,6 +56,15 @@
   padding: 4px 0 0;
   font-size: 16px;
 }
+.form__input__label::after {
+  content: "*";
+  color: red;
+  padding-left: 2px;
+  font-size: 14px;
+}
+.form__input_last input:focus::placeholder {
+  color: transparent;
+}
 .modal_button {
   margin: 10px 10px 10px 0;
   background: none;

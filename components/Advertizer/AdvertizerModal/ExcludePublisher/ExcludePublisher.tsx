@@ -1,25 +1,26 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
-
+import { Alert } from "@mui/material";
 import styles from "./ExcludePublisher.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 
 type ExcludePublisherProps = {
   showExcludedPublisher: boolean;
   onClose: any;
-  Excludedata:any
+  Excludedata: any;
 };
 
 const ExcludePublisher = ({
   showExcludedPublisher,
   onClose,
-  Excludedata
+  Excludedata,
 }: ExcludePublisherProps) => {
- 
   if (!showExcludedPublisher) {
     return null;
   }
   const [publisher, setPublisher] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleClick = async (e: any) => {
     e.preventDefault();
@@ -35,12 +36,31 @@ const ExcludePublisher = ({
         },
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        Excludedata(true)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     Excludedata(true)
+      //   });
+      // onClose();
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data);
+            Excludedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
       });
+  };
+  const handleModel = () => {
     onClose();
+    setPublisher("");
+    setError(false);
   };
   return (
     <div className={styles.modal} onClick={onClose}>
@@ -55,10 +75,10 @@ const ExcludePublisher = ({
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input_last}>
-              <label>Publisher</label>
+              <label className={styles.form__input__label}>Add Publisher</label>
               <input
                 type="text"
-                placeholder="ADD Publisher"
+                placeholder="Add Publisher"
                 name=""
                 value={publisher}
                 onChange={(e) => setPublisher(e.target.value)}
@@ -78,6 +98,7 @@ const ExcludePublisher = ({
             Close
           </button>
         </div>
+        {error && <Alert severity="error">{errorMessage}</Alert>}
       </div>
     </div>
   );

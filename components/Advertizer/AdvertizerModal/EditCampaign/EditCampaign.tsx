@@ -62,7 +62,7 @@ const EditCampaign = ({
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input}>
-              <label>Campaign Name</label>
+              <label className={styles.form__input__label}>Campaign Name</label>
               <input
                 type="text"
                 placeholder="Campaign Name"
@@ -72,7 +72,7 @@ const EditCampaign = ({
               />
             </div>
             <div className={styles.form__input_last}>
-              <label>Landing Page Url</label>
+              <label className={styles.form__input__label}>Landing Page Url</label>
               <input
                 type="text"
                 placeholder="Landing Page Url"

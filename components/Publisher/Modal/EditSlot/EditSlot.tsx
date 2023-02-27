@@ -64,7 +64,7 @@ const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input}>
-              <label>Ad Slot ID</label>
+              <label className={styles.form__input__label}>Ad Slot ID</label>
               <input
                 type="text"
                 placeholder="Ad Slot ID"
@@ -74,7 +74,7 @@ const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
               />
             </div>
             <div className={styles.form__input}>
-              <label>Height</label>
+              <label className={styles.form__input__label}>Height</label>
               <input
                 type="text"
                 placeholder="Height"
@@ -84,7 +84,7 @@ const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
               />
             </div>
             <div className={styles.form__input_last}>
-              <label>Width</label>
+              <label className={styles.form__input__label}>Width</label>
               <input
                 type="text"
                 placeholder="Width"

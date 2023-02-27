@@ -120,7 +120,7 @@ const EditAdvertisement = ({
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input}>
-              <label>Ad Id</label>
+              <label className={styles.form__input__label}>Ad Id</label>
               <input
                 type="text"
                 placeholder="AD ID"
@@ -130,7 +130,7 @@ const EditAdvertisement = ({
               />
             </div>
             <div className={styles.form__input}>
-              <label>Asset Type</label>
+              <label className={styles.form__input__label}>Asset Type</label>
               <input
                 type="text"
                 placeholder="Asset Type"
@@ -149,7 +149,7 @@ const EditAdvertisement = ({
             />
           </div> */}
             <div className={styles.form__input}>
-              <label>Asset</label>
+              <label className={styles.form__input__label}>Asset</label>
               <input
                 type="file"
                 placeholder="Asset Url"
@@ -200,7 +200,7 @@ const EditAdvertisement = ({
               )}
             </div>
             <div className={styles.form__input}>
-              <label>Asset Height</label>
+              <label className={styles.form__input__label}>Asset Height</label>
               <input
                 type="text"
                 placeholder="Asset Height"
@@ -210,7 +210,7 @@ const EditAdvertisement = ({
               />
             </div>
             <div className={styles.form__input_last}>
-              <label>Asset Width</label>
+              <label className={styles.form__input__label}>Asset Width</label>
               <input
                 type="text"
                 placeholder="Asset Width"

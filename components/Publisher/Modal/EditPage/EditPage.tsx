@@ -54,7 +54,7 @@ const EditPage = ({ editshow, onClose, data, pageData }: EditPageProps) => {
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input}>
-              <label>Page Name</label>
+              <label className={styles.form__input__label}>Page Name</label>
               <input
                 type="text"
                 placeholder="Page Name"
@@ -64,7 +64,7 @@ const EditPage = ({ editshow, onClose, data, pageData }: EditPageProps) => {
               />
             </div>
             <div className={styles.form__input_last}>
-              <label>Page Url</label>
+              <label className={styles.form__input__label}>Page Url</label>
               <input
                 type="text"
                 placeholder="Page Url"

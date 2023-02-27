@@ -52,7 +52,7 @@ const LoginForm = () => {
         <h1 className={styles.form__container__title}>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.form__input}>
-            <label>Email</label>
+            <label className={styles.form__input__label}>Email</label>
             <input
               type="email"
               placeholder="Email"
@@ -62,7 +62,7 @@ const LoginForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label>Password</label>
+            <label className={styles.form__input__label}>Password</label>
             <input
               type="password"
               placeholder="Password"

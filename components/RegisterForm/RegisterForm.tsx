@@ -5,6 +5,7 @@ import styles from "./RegisterForm.module.css";
 import card4 from "../../public/card4.jpg";
 import { useRouter } from "next/router";
 import { Alert } from "@mui/material";
+import { StyleRegistry } from "styled-jsx";
 
 type Response = {
   name: string;
@@ -63,7 +64,7 @@ const RegisterForm = () => {
         <h1 className={styles.form__container__title}>Registration</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.form__input}>
-            <label>Name</label>
+            <label className={styles.form__input__label}>Name</label>
             <input
               type="text"
               placeholder="Name"
@@ -74,7 +75,7 @@ const RegisterForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label>Email</label>
+            <label className={styles.form__input__label}>Email</label>
             <input
               type="email"
               placeholder="Email"
@@ -85,7 +86,7 @@ const RegisterForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label>Phone</label>
+            <label className={styles.form__input__label}>Phone</label>
             <input
               type="text"
               placeholder="Phone"
@@ -96,10 +97,10 @@ const RegisterForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label>Site Name</label>
+            <label className={styles.form__input__label}>Site Name</label>
             <input
               type="text"
-              placeholder="siteName"
+              placeholder="Site Name"
               name="siteName"
               onChange={(e) => setSiteName(e.target.value)}
               value={siteName}
@@ -107,7 +108,7 @@ const RegisterForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label>Password</label>
+            <label className={styles.form__input__label}>Password</label>
             <input
               type="password"
               placeholder="Password"
@@ -118,7 +119,7 @@ const RegisterForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label>Confirm Password</label>
+            <label className={styles.form__input__label}>Confirm Password</label>
             <input
               type="password"
               placeholder="Confirm Password"

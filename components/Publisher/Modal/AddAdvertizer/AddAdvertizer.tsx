@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { mutate } from "swr";
 import styles from "./AddAdvertizer.module.css";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { Alert } from "@mui/material";
 type AddAdvertizerProps = {
   showAdvertizer: boolean;
   onClose: any;
-  Includedata :any 
+  Includedata: any;
 };
 
-const AddAdvertizer = ({ showAdvertizer, onClose, Includedata}: AddAdvertizerProps) => {
+const AddAdvertizer = ({
+  showAdvertizer,
+  onClose,
+  Includedata,
+}: AddAdvertizerProps) => {
   const [advertizer, setAdvertizer] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   if (!showAdvertizer) {
     return null;
   }
@@ -28,27 +34,49 @@ const AddAdvertizer = ({ showAdvertizer, onClose, Includedata}: AddAdvertizerPro
         },
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        Includedata(true)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     Includedata(true);
+      //     setAdvertizer("");
+      //   });
+      // onClose();
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data);
+            Includedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
       });
+  };
+  const handleModel = () => {
     onClose();
+    setAdvertizer("");
+    setError(false);
   };
   return (
-    <div className={styles.modal} onClick={onClose}>
+    <div className={styles.modal} onClick={handleModel}>
       <div
         className={styles.modal_content}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
           <h4>Include Advertizer</h4>
-          <CloseIcon onClick={onClose} className={styles.close_icon} />
+          <CloseIcon onClick={handleModel} className={styles.close_icon} />
         </div>
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input_last}>
-              <label>Add advertizer</label>
+              <label className={styles.form__input__label}>
+                Add advertizer
+              </label>
               <input
                 type="text"
                 placeholder="ADD advertizer"
@@ -64,13 +92,17 @@ const AddAdvertizer = ({ showAdvertizer, onClose, Includedata}: AddAdvertizerPro
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
+          <button
+            className={styles.modal_button}
+            onClick={(e) => handleClick(e)}
+          >
             Include
           </button>
-          <button className={styles.modal_button} onClick={onClose}>
+          <button className={styles.modal_button} onClick={handleModel}>
             Close
           </button>
         </div>
+        {error && <Alert severity="error">{errorMessage}</Alert>}
       </div>
     </div>
   );

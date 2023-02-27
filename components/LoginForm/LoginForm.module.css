@@ -1,64 +1,73 @@
 .form__container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5rem auto;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
-    max-width: 60vw;
-  }
-  .form__container__left {
-    padding: 60px 30px 20px;
-    background: #fff;
-    flex: 1.5;
-  }
-  .form__container__title {
-    text-align: center;
-    color: #e91e63;
-  }
-  .form__input {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 10px 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    transition: 0.3s;
-  }
-  .form__input input {
-    outline: 0;
-    border: 0;
-    padding: 4px 0 0;
-    font-size: 16px;
-  }
-  .form__input label {
-    font-size: 11px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.7px;
-    color: #e91e63;
-    transition: 0.3s;
-  }
-  .form__button {
-    margin-top: 10px;
-    padding: 1.2rem 3.2rem;
-    outline: none;
-    text-transform: uppercase;
-    border: 0;
-    color: #fff;
-    border-radius: 4px;
-    background: #e91e63;
-    transition: 0.3s;
-    cursor: pointer;
-    
-  }
-  .form__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    flex: 2;
-    overflow: hidden;
-  }
-  .form__sign{
-      color: #e91e63;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  max-width: 60vw;
+}
+.form__container__left {
+  padding: 60px 30px 20px;
+  background: #fff;
+  flex: 1.5;
+}
+.form__container__title {
+  text-align: center;
+  color: #e91e63;
+}
+
+.form__input {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+.form__input input {
+  outline: 0;
+  border: 0;
+  padding: 4px 0 0;
+  font-size: 16px;
+}
+.form__input label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  color: #e91e63;
+  transition: 0.3s;
+}
+.form__input__label::after {
+  content: "*";
+  color: red;
+  padding-left: 2px;
+  font-size: 14px;
+}
+.form__input input:focus::placeholder {
+  color: transparent;
+}
+.form__button {
+  margin-top: 10px;
+  padding: 1.2rem 3.2rem;
+  outline: none;
+  text-transform: uppercase;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  background: #e91e63;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.form__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex: 2;
+  overflow: hidden;
+}
+.form__sign {
+  color: #e91e63;
+}

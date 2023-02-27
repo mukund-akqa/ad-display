@@ -4,7 +4,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,6 +56,12 @@
   padding: 4px 0 0;
   font-size: 16px;
 }
+.form__input__label::after {
+  content: "*";
+  color: red;
+  padding-left: 2px;
+  font-size: 14px;
+}
 .modal_button {
   margin: 10px 10px 10px 0;
   background: none;
@@ -74,7 +80,6 @@
 }
 .close_icon :hover {
   color: #000;
-  
 }
 .form__input label,
 .form__input_last label {

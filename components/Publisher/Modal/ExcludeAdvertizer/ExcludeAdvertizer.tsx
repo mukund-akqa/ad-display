@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import styles from "./ExcludeAdvertizer.module.css";
-
+import { Alert } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 type AddAdvertizerProps = {
   showExcludedAdvertizer: boolean;
   onClose: any;
-  Excludedata:any
+  Excludedata: any;
 };
 
 const ExcludeAdvertizer = ({
   showExcludedAdvertizer,
   onClose,
-  Excludedata
+  Excludedata,
 }: AddAdvertizerProps) => {
   const [advertizer, setAdvertizer] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   if (!showExcludedAdvertizer) {
     return null;
   }
@@ -31,26 +33,49 @@ const ExcludeAdvertizer = ({
         },
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        Excludedata(true)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     Excludedata(true);
+      //     setAdvertizer("");
+      //   });
+      // onClose();
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data);
+            Excludedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
       });
+  };
+  const handleModel = () => {
     onClose();
+    setAdvertizer("");
+    setError(false);
   };
   return (
-    <div className={styles.modal} onClick={onClose}>
+    <div className={styles.modal} onClick={handleModel}>
       <div
         className={styles.modal_content}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
           <h4>Exclude Advertizer</h4>
-          <CloseIcon onClick={onClose} className={styles.close_icon} />
+          <CloseIcon onClick={handleModel} className={styles.close_icon} />
         </div>
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input_last}>
+              <label className={styles.form__input__label}>
+                Add advertizer
+              </label>
               <input
                 type="text"
                 placeholder="ADD advertizer"
@@ -66,13 +91,20 @@ const ExcludeAdvertizer = ({
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
+          <button
+            className={styles.modal_button}
+            onClick={(e) => handleClick(e)}
+          >
             Exclude
           </button>
-          <button className={styles.modal_button} onClick={onClose}>
+          {/* <button className={styles.modal_button} onClick={onClose}>
+            Close
+          </button> */}
+          <button className={styles.modal_button} onClick={handleModel}>
             Close
           </button>
         </div>
+        {error && <Alert severity="error">{errorMessage}</Alert>}
       </div>
     </div>
   );

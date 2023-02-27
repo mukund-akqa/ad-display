@@ -11,14 +11,14 @@ type AddAdvertisementProps = {
   addModal: boolean;
   campaignName: string;
   onClose: any;
-  addata:any
+  addata: any;
 };
 
 const AddAdvertisement = ({
   addModal,
   campaignName,
   onClose,
-  addata
+  addata,
 }: AddAdvertisementProps) => {
   if (!addModal) {
     return null;
@@ -71,43 +71,54 @@ const AddAdvertisement = ({
   };
 
   const handleClick = async (e: any) => {
-    e.preventDefault();
-    await fetch("/api/AdvertizerProfile/Ads/addAds", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: {
-          refId: sessionStorage.getItem("refId"),
-          adId: adId,
-          assetType: assetType,
-          assetUrl: assetUrl,
-          assetHeight: assetHeight,
-          assetWidth: assetWidth,
-          campaignName: campaignName,
+    if (
+      adId == "" ||
+      assetHeight == "" ||
+      assetWidth == "" ||
+      assetType == "" ||
+      file == null
+    ) {
+      setError(true);
+      setErrorMessage("data not entered");
+    } else {
+      e.preventDefault();
+      await fetch("/api/AdvertizerProfile/Ads/addAds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-    }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          console.log(data);
-          onClose();
-          setAdId("");
-          setAssetType("");
-          setAssetUrl("");
-          setAssetHeight("");
-          setAssetWidth("");
-          setFile(null);
-          addata(true)
-        });
-      } else {
-        res.json().then((data) => {
-          setError(true);
-          setErrorMessage(data.error);
-        });
-      }
-    });
+        body: JSON.stringify({
+          data: {
+            refId: sessionStorage.getItem("refId"),
+            adId: adId,
+            assetType: assetType,
+            assetUrl: assetUrl,
+            assetHeight: assetHeight,
+            assetWidth: assetWidth,
+            campaignName: campaignName,
+          },
+        }),
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data);
+            onClose();
+            setAdId("");
+            setAssetType("");
+            setAssetUrl("");
+            setAssetHeight("");
+            setAssetWidth("");
+            setFile(null);
+            addata(true);
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
+      });
+    }
   };
 
   const handleModel = () => {
@@ -128,23 +139,25 @@ const AddAdvertisement = ({
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input}>
-              <label>Ad Id</label>
+              <label className={styles.form__input__label}>Ad Id</label>
               <input
                 type="text"
                 placeholder="AD ID"
                 name="adId"
                 value={adId}
                 onChange={(e) => setAdId(e.target.value)}
+                required
               />
             </div>
             <div className={styles.form__input}>
-              <label>Asset Type</label>
+              <label className={styles.form__input__label}>Asset Type</label>
               <input
                 type="text"
                 placeholder="Asset Type"
                 name="assetType"
                 value={assetType}
                 onChange={(e) => setAssetType(e.target.value)}
+                required
               />
             </div>
             {/* <div className={styles.form__input}>
@@ -157,7 +170,7 @@ const AddAdvertisement = ({
               />
             </div> */}
             <div className={styles.form__input}>
-              <label>Asset</label>
+              <label className={styles.form__input__label}>Asset</label>
               <input
                 type="file"
                 placeholder="Asset Url"
@@ -166,6 +179,7 @@ const AddAdvertisement = ({
                 style={{ display: "none" }}
                 ref={hiddenFileInput}
                 accept="image/*,video/*"
+                required
               />
               <button
                 onClick={(e) => handleFileInput(e)}
@@ -192,23 +206,25 @@ const AddAdvertisement = ({
               )}
             </div>
             <div className={styles.form__input}>
-              <label>Asset Height</label>
+              <label className={styles.form__input__label}>Asset Height</label>
               <input
                 type="text"
                 placeholder="Asset Height"
                 name="assetHeight"
                 value={assetHeight}
                 onChange={(e) => setAssetHeight(e.target.value)}
+                required
               />
             </div>
             <div className={styles.form__input_last}>
-              <label>Asset Width</label>
+              <label className={styles.form__input__label}>Asset Width</label>
               <input
                 type="text"
                 placeholder="Asset Width"
                 name="assetWidth"
                 value={assetWidth}
                 onChange={(e) => setAssetWidth(e.target.value)}
+                required
               />
             </div>
             {/* {error && <Alert severity="error">{errorMessage}</Alert>}

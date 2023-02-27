@@ -2,22 +2,24 @@
 import React, { useState } from "react";
 import styles from "./AddPublisher.module.css";
 import CloseIcon from "@mui/icons-material/Close";
+import { Alert } from "@mui/material";
 type AddPublisherProps = {
   showIncludedPublisher: boolean;
   onClose: any;
-  Includedata:any
+  Includedata: any;
 };
 
 const AddPublisher = ({
   showIncludedPublisher,
   onClose,
-  Includedata
+  Includedata,
 }: AddPublisherProps) => {
-  
   if (!showIncludedPublisher) {
     return null;
   }
   const [publisher, setPublisher] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleClick = async (e: any) => {
     e.preventDefault();
@@ -33,12 +35,31 @@ const AddPublisher = ({
         },
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        Includedata(true)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     Includedata(true);
+      //   });
+      // onClose();
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            console.log(data);
+            Includedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
       });
+  };
+  const handleModel = () => {
     onClose();
+    setPublisher("");
+    setError(false);
   };
 
   return (
@@ -54,10 +75,10 @@ const AddPublisher = ({
         <div className={styles.modal_body}>
           <form>
             <div className={styles.form__input_last}>
-              <label>Publisher</label>
+              <label className={styles.form__input__label}>Add Publisher</label>
               <input
                 type="text"
-                placeholder="Publisher"
+                placeholder="Add Publisher"
                 name=""
                 value={publisher}
                 onChange={(e) => setPublisher(e.target.value)}
@@ -77,6 +98,7 @@ const AddPublisher = ({
             Close
           </button>
         </div>
+        {error && <Alert severity="error">{errorMessage}</Alert>}
       </div>
     </div>
   );
