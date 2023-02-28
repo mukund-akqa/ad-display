@@ -24,7 +24,7 @@ const AddPage = ({ show, onClose, pageData }: AddPageProps) => {
   const handleClick = async (e: any) => {
     if (pageName === "" || pageUrl === "") {
       setError(true);
-      setErrorMessage("data not entered");
+      setErrorMessage("Data not entered");
     } else {
       e.preventDefault();
       await fetch("/api/PublisherProfile/Webpages/addPage", {

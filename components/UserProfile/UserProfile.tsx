@@ -6,14 +6,20 @@ import Profile from "../../public/Profile.jpg";
 import Link from "next/link";
 import card4 from "../../public/card4.jpg";
 import { useRouter } from "next/router";
+import Spinner from "../Spinner/Spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [siteName,setSiteName] = useState("")
+  const [siteName, setSiteName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
+  const notify = () => toast.success("profile updated successfully",{
+    autoClose:1000
+  });
   useEffect(() => {
     fetch("/api/UserProfile/getUser", {
       method: "POST",
@@ -31,11 +37,12 @@ const UserProfile = () => {
         setName(data.userData.name);
         setEmail(data.userData.email);
         setPhone(data.userData.phone);
-        setSiteName(data.userData.siteName)
+        setSiteName(data.userData.siteName);
       });
   }, []);
-  const handleUpdate = async (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
     await fetch("/api/UserProfile/updateUser", {
       method: "POST",
       headers: {
@@ -46,18 +53,19 @@ const UserProfile = () => {
           name: name,
           email: email,
           phone: phone,
-          siteName:siteName,
+          siteName: siteName,
           refId: sessionStorage.getItem("refId"),
         },
       }),
-    }).then((res) => {
+    })
+      .then((res) => {
         res.json().then((data) => {
-          console.log(data.name);
-          console.log("account page");
+          setIsLoading(false);
+          notify()
         });
       })
       .catch((e) => console.log(e));
-      router.push('/account')
+    // router.push('/account')
   };
   return (
     <div className={styles.userProfile}>
@@ -76,7 +84,7 @@ const UserProfile = () => {
               />
             </div>
             <div className={styles.form__input}>
-            <label>Email</label>
+              <label>Email</label>
               <input
                 type="email"
                 placeholder="Email"
@@ -86,7 +94,7 @@ const UserProfile = () => {
               />
             </div>
             <div className={styles.form__input}>
-            <label>Phone</label>
+              <label>Phone</label>
               <input
                 type="text"
                 placeholder="Phone"
@@ -96,7 +104,7 @@ const UserProfile = () => {
               />
             </div>
             <div className={styles.form__input}>
-            <label>Site</label>
+              <label>Site</label>
               <input
                 type="text"
                 placeholder="Site Name"
@@ -106,10 +114,16 @@ const UserProfile = () => {
               />
             </div>
 
-            <button className={styles.form__button} type="submit">
+            <button
+              className={styles.form__button}
+              type="submit"
+              disabled={isLoading}
+            >
               Update
             </button>
+            {isLoading && <Spinner />}
           </form>
+          <ToastContainer />
         </div>
         {/* <Image src={Profile} alt="form" className={styles.form__image} /> */}
       </div>

@@ -9,12 +9,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
+
   /* transition: all 1s ease-in-out; */
 }
 
 .modal_content {
   width: 600px;
   background-color: #fff;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 .modal_body {
   padding: 10px;

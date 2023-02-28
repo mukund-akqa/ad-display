@@ -22,7 +22,7 @@ const AddCampaign = ({ showCampaign, onClose, campdata }: AddCampaignProps) => {
   const handleClick = async (e: any) => {
     if (campaignName === "" || landingPageUrl === "") {
       setError(true);
-      setErrorMessage("data not entered");
+      setErrorMessage("Data not entered");
     } else {
       console.log(landingPageUrl);
       e.preventDefault();

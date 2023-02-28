@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import EditAdvertisment from "../AdvertizerModal/EditAdvertisement/EditAdvertisement";
 import EditAdvertisement from "../AdvertizerModal/EditAdvertisement/EditAdvertisement";
+import Spinner from "../../Spinner/Spinner";
 
 type AdvertizerProfilePageProps = {
   campaignName: any;
@@ -28,6 +29,7 @@ const AdvertizerProfilePage = ({
   const [editModal, setEditModal] = useState(false);
   const [adData, setAdData] = useState([]);
   const [dataUpdated, setDataUpdated] = useState(false);
+ 
   const [editData, setEditData] = useState({
     adId: "",
     assetType: "",
@@ -58,10 +60,9 @@ const AdvertizerProfilePage = ({
     })
       .then((res) => {
         res.json().then((data) => {
-          setAdData(data.updatedData)
+          setAdData(data.updatedData);
         });
         // mutate("/api/getPage");
-        
       })
       .catch((e) => console.log(e));
   };
@@ -86,6 +87,7 @@ const AdvertizerProfilePage = ({
     });
   };
   useEffect(() => {
+   
     const fetchData = async () => {
       await fetch("/api/AdvertizerProfile/Ads/getAds", {
         method: "POST",
@@ -100,12 +102,15 @@ const AdvertizerProfilePage = ({
         }),
       })
         .then((data) => data.json())
-        .then((data) => setAdData(data.adsData));
+        .then((data) => {
+          setAdData(data.adsData);
+          
+        });
       setDataUpdated(false);
     };
     const timer = setTimeout(() => {
       fetchData();
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [dataUpdated]);
   return (
@@ -132,6 +137,7 @@ const AdvertizerProfilePage = ({
                 <th className={styles.table_head}>Actions</th>
               </tr>
             </thead>
+            
             <tbody>
               {adData.map((item: item, id) => (
                 <>

@@ -24,7 +24,7 @@ export default async function handler(
   //   console.log(oldData);
   let ans = oldData.excludePublishers.includes(publisher);
   if (ans) {
-    res.status(400).json({ error: "publisher already exists" });
+    res.status(400).json({ error: "Publisher already exists" });
   } else {
     oldData.excludePublishers.push(publisher);
     let query = await faunaClient.query(

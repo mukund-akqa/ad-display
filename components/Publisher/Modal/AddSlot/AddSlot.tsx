@@ -25,7 +25,7 @@ const AddSlot = ({ show, onClose, pageName, slotData }: AddSlotProps) => {
   const handleClick = async (e: any) => {
     if (slotId == "" || slotHeight == "" || slotWidth == "") {
       setError(true);
-      setErrorMessage("data not entered");
+      setErrorMessage("Data not entered");
     } else {
       e.preventDefault();
       await fetch("/api/PublisherProfile/Slots/addSlot", {

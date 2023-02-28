@@ -22,39 +22,44 @@ const AddPublisher = ({
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleClick = async (e: any) => {
-    e.preventDefault();
-    await fetch("/api/AdvertizerProfile/IncludePublisher/addPublisher", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: {
-          refId: sessionStorage.getItem("refId"),
-          publisher: publisher,
+    if (publisher === "") {
+      setError(true);
+      setErrorMessage("Data not entered");
+    } else {
+      e.preventDefault();
+      await fetch("/api/AdvertizerProfile/IncludePublisher/addPublisher", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-    })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //     Includedata(true);
-      //   });
-      // onClose();
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            console.log(data);
-            Includedata(true);
-            handleModel();
-          });
-        } else {
-          res.json().then((data) => {
-            setError(true);
-            setErrorMessage(data.error);
-          });
-        }
-      });
+        body: JSON.stringify({
+          data: {
+            refId: sessionStorage.getItem("refId"),
+            publisher: publisher,
+          },
+        }),
+      })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log(data);
+        //     Includedata(true);
+        //   });
+        // onClose();
+        .then((res) => {
+          if (res.status === 200) {
+            res.json().then((data) => {
+              console.log(data);
+              Includedata(true);
+              handleModel();
+            });
+          } else {
+            res.json().then((data) => {
+              setError(true);
+              setErrorMessage(data.error);
+            });
+          }
+        });
+    }
   };
   const handleModel = () => {
     onClose();

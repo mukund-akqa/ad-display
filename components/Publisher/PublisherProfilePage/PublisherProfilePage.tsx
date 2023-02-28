@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import AddSlot from "../Modal/AddSlot/AddSlot";
 import EditSlot from "../Modal/EditSlot/EditSlot";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import styles from "./PublisherProfilepage.module.css";
+import Spinner from "../../Spinner/Spinner";
 
 type PublisherProfilePageProps = {
   pageName: any;
@@ -24,12 +25,13 @@ const PublisherProfilePage = ({
   const [editModal, setEditModal] = useState(false);
   const [dataUpdated, setDataUpdated] = useState(false);
   const [tableData, setTableData] = useState([]);
+
   const [editData, setEditData] = useState({
     slotId: "",
     slotHeight: "",
     slotWidth: "",
     id: "",
-    pageName:""
+    pageName: "",
   });
   const slotData = (value: boolean) => {
     setDataUpdated(value);
@@ -70,7 +72,7 @@ const PublisherProfilePage = ({
       slotHeight,
       slotWidth,
       id,
-      pageName
+      pageName,
     });
   };
 
@@ -88,10 +90,13 @@ const PublisherProfilePage = ({
       }),
     })
       .then((data) => data.json())
-      .then((data) => setTableData(data.slotData));
-      setDataUpdated(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[dataUpdated]);
+      .then((data) => {
+        setTableData(data.slotData);
+      });
+    setDataUpdated(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataUpdated]);
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
@@ -105,6 +110,7 @@ const PublisherProfilePage = ({
         </div>
         <div>
           <p className={styles.table_heading}>Ad Slots</p>
+
           <table className={styles.table}>
             <thead>
               <tr>
@@ -114,6 +120,7 @@ const PublisherProfilePage = ({
                 <th className={styles.table_head}>Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {tableData.map((item: item, id) => (
                 <>
@@ -122,8 +129,11 @@ const PublisherProfilePage = ({
                     <td className={styles.table_data}>{item.slotHeight}</td>
                     <td className={styles.table_data}>{item.slotWidth}</td>
                     <td className={styles.table_data}>
-                      <button onClick={() => onDelete(item.slotId)} className={styles.icon}>
-                        <DeleteIcon/>
+                      <button
+                        onClick={() => onDelete(item.slotId)}
+                        className={styles.icon}
+                      >
+                        <DeleteIcon />
                       </button>
                       <button
                         onClick={() =>
@@ -136,7 +146,7 @@ const PublisherProfilePage = ({
                         }
                         className={styles.icon}
                       >
-                        <EditIcon/>
+                        <EditIcon />
                       </button>
                     </td>
                   </tr>

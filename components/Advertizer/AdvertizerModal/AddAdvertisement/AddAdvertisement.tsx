@@ -79,7 +79,7 @@ const AddAdvertisement = ({
       file == null
     ) {
       setError(true);
-      setErrorMessage("data not entered");
+      setErrorMessage("Data not entered");
     } else {
       e.preventDefault();
       await fetch("/api/AdvertizerProfile/Ads/addAds", {

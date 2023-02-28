@@ -24,7 +24,7 @@ export default async function handler(
   console.log("oldData", oldData);
   let ans = oldData.includeAdvertizers.includes(advertizer);
   if (ans) {
-    res.status(400).json({ error: "advertizer already exists" });
+    res.status(400).json({ error: "Advertizer already exists" });
   } else {
     oldData.includeAdvertizers.push(advertizer);
 

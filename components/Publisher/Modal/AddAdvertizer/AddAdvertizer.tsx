@@ -21,40 +21,45 @@ const AddAdvertizer = ({
     return null;
   }
   const handleClick = async (e: any) => {
-    e.preventDefault();
-    await fetch("/api/PublisherProfile/IncludeAdvertizer/addAdvertizer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: {
-          refId: sessionStorage.getItem("refId"),
-          advertizer: advertizer,
+    if (advertizer === "") {
+      setError(true);
+      setErrorMessage("Data not entered");
+    } else {
+      e.preventDefault();
+      await fetch("/api/PublisherProfile/IncludeAdvertizer/addAdvertizer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }),
-    })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //     Includedata(true);
-      //     setAdvertizer("");
-      //   });
-      // onClose();
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            console.log(data);
-            Includedata(true);
-            handleModel();
-          });
-        } else {
-          res.json().then((data) => {
-            setError(true);
-            setErrorMessage(data.error);
-          });
-        }
-      });
+        body: JSON.stringify({
+          data: {
+            refId: sessionStorage.getItem("refId"),
+            advertizer: advertizer,
+          },
+        }),
+      })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log(data);
+        //     Includedata(true);
+        //     setAdvertizer("");
+        //   });
+        // onClose();
+        .then((res) => {
+          if (res.status === 200) {
+            res.json().then((data) => {
+              console.log(data);
+              Includedata(true);
+              handleModel();
+            });
+          } else {
+            res.json().then((data) => {
+              setError(true);
+              setErrorMessage(data.error);
+            });
+          }
+        });
+    }
   };
   const handleModel = () => {
     onClose();
