@@ -11,13 +11,9 @@ import styles from "./Footer.module.css";
 import { client as c } from "../../lib/contentfulClient";
 import * as contentful from "contentful";
 
-export const client = contentful.createClient({
-  space: "zx1oww7gzayd",
-  accessToken: "CCGg1vBRSts9iCobYeGq1Co7S510rlz5v-F3EB55GG8",
-});
-
 const Footer = () => {
   const [data, setData] = useState<any>([]);
+  const [socialData, setSocialData] = useState<any>();
 
   const fdata = async () => {
     await c
@@ -42,10 +38,35 @@ const Footer = () => {
         });
       });
   };
+  const social = async () => {
+    await c
+      .getEntries({
+        content_type: "socialMedia",
+        limit: 2,
+        include: 10,
+      })
+      .then((entry: any) => {
+        console.log(entry);
+
+        setSocialData(entry.items[0].fields);
+        const { title, socialIcon } = entry.items[0].fields;
+        // console.log(title);
+        // console.log(socialIcon);
+        socialIcon.map((item: any) => {
+          // console.log(item.fields.title);
+          // console.log(item.fields.url);
+          console.log(item.fields.icon.fields.file.url);
+        });
+
+        /*  console.log(entry.)*/
+      });
+  };
 
   useEffect(() => {
     fdata();
+    social();
   }, []);
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
@@ -124,7 +145,7 @@ const Footer = () => {
             </ul>
           </div>  */}
           <div className={styles.footer__container__col}>
-            <h4>follow us</h4>
+            {/* <h4>follow us</h4>
             <div className={styles.social_links}>
               <a href="#">
                 <FontAwesomeIcon
@@ -154,8 +175,27 @@ const Footer = () => {
                   size="2x"
                   className={styles.twitter}
                 />
-              </a>
+              </a> */}
+            <h4>{socialData?.title}</h4>
+
+            <div className={styles.social_links}>
+              {socialData?.socialIcon.map((item: any) => {
+                console.log(item.fields.icon.fields.file.url);
+                return (
+                  <a href={item.fields.url}>
+                    <img
+                      src={item.fields.icon.fields.file.url}
+                      alt="contentful"
+                      height={30}
+                      width={30}
+                    ></img>
+                  </a>
+                );
+              })}
             </div>
+
+            {/* <img src={youtube.src} alt="youtbe" width={50} height={50} /> */}
+            {/* </div> */}
           </div>
         </div>
       </div>
