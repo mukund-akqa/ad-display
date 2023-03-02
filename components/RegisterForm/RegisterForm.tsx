@@ -23,6 +23,8 @@ const RegisterForm = () => {
   const [phone, setPhone] = useState("");
   const [siteName, setSiteName] = useState("");
   const [invalidPassword, setInvalidPassword] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const requestOptions = {
@@ -42,7 +44,7 @@ const RegisterForm = () => {
     e.preventDefault();
     console.log("name", name);
     if (password !== copassword) {
-      setInvalidPassword(true)
+      setInvalidPassword(true);
       return false;
     } else {
       await fetch("api/registerUser", requestOptions)
@@ -52,6 +54,11 @@ const RegisterForm = () => {
               sessionStorage.setItem("refId", data.refId);
             });
             router.push("/login");
+          } else {
+            res.json().then((data) => {
+              setError(true);
+              setErrorMessage(data.error);
+            });
           }
         })
         .catch((e) => console.log(e));
@@ -119,7 +126,9 @@ const RegisterForm = () => {
             />
           </div>
           <div className={styles.form__input}>
-            <label className={styles.form__input__label}>Confirm Password</label>
+            <label className={styles.form__input__label}>
+              Confirm Password
+            </label>
             <input
               type="password"
               placeholder="Confirm Password"
@@ -129,7 +138,9 @@ const RegisterForm = () => {
               required
             />
           </div>
-          {invalidPassword && <Alert severity="error">Passwords not matching</Alert>}
+          {invalidPassword && (
+            <Alert severity="error">Passwords not matching</Alert>
+          )}
           <button className={styles.form__button} type="submit">
             Register
           </button>
@@ -140,6 +151,7 @@ const RegisterForm = () => {
             Sign In
           </Link>
         </p>
+        {error && <Alert severity="error">{errorMessage}</Alert>}
       </div>
       <Image src={card4} alt="form" className={styles.form__image} />
     </div>

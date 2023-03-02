@@ -73,7 +73,7 @@ const AddAdvertizer = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
-          <h4>Include Advertizer</h4>
+          <h4>Include Advertizer Domain</h4>
           <CloseIcon onClick={handleModel} className={styles.close_icon} />
         </div>
         <div className={styles.modal_body}>

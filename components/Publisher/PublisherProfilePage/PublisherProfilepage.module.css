@@ -10,6 +10,9 @@
 .page_container {
   margin: 62px 20px;
 }
+.page_container a:hover {
+  color: crimson;
+}
 .page_title {
   font-size: 32px;
 }

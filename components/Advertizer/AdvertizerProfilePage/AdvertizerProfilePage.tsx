@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import EditAdvertisment from "../AdvertizerModal/EditAdvertisement/EditAdvertisement";
 import EditAdvertisement from "../AdvertizerModal/EditAdvertisement/EditAdvertisement";
 import Spinner from "../../Spinner/Spinner";
+import Link from "next/link";
 
 type AdvertizerProfilePageProps = {
   campaignName: any;
@@ -29,7 +30,7 @@ const AdvertizerProfilePage = ({
   const [editModal, setEditModal] = useState(false);
   const [adData, setAdData] = useState([]);
   const [dataUpdated, setDataUpdated] = useState(false);
- 
+
   const [editData, setEditData] = useState({
     adId: "",
     assetType: "",
@@ -87,7 +88,6 @@ const AdvertizerProfilePage = ({
     });
   };
   useEffect(() => {
-   
     const fetchData = async () => {
       await fetch("/api/AdvertizerProfile/Ads/getAds", {
         method: "POST",
@@ -104,7 +104,6 @@ const AdvertizerProfilePage = ({
         .then((data) => data.json())
         .then((data) => {
           setAdData(data.adsData);
-          
         });
       setDataUpdated(false);
     };
@@ -116,7 +115,9 @@ const AdvertizerProfilePage = ({
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
-        <p>AdvertizerProfile/Page Details</p>
+        {/* <p>AdvertizerProfile/Page Details</p> */}
+        <Link href={"/account/advertizer"}>Advertizer Profile</Link>
+        <span>{" > "}CampaignDetails</span>
         <div>
           <p className={styles.page_title}>CAMPAIGN-{campaignName}</p>
           <div className={styles.page_details}>
@@ -137,7 +138,7 @@ const AdvertizerProfilePage = ({
                 <th className={styles.table_head}>Actions</th>
               </tr>
             </thead>
-            
+
             <tbody>
               {adData.map((item: item, id) => (
                 <>

@@ -16,26 +16,12 @@ import Account from "../components/Account/Account";
 import Main from "../components/Main/Main";
 import { useEffect } from "react";
 
-interface Props {
-  footerData: IFooterFields[];
-}
-
 export default function Home() {
-  
-
   return (
     <>
-      {/* <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head> */}
       <div className={styles.wrapper}>
         <Header />
-        {/* <Account/> */}
-        {/* <Content />
-      <CardList/>
-      <Info/> */}
-        {/* <RegisterForm/> */}
-        {/* <LoginForm/> */}
+
         <Main />
         <Footer />
       </div>
@@ -43,14 +29,4 @@ export default function Home() {
   );
 }
 
-// export const getStaticProps: GetStaticProps<Props> = async () => {
-//   const footerData = (
-//     await ContentService.instance.getEntriesByType<IFooterFields>("footer")
-//   ).map((entry) => entry.fields);
 
-//   return {
-//     props: {
-//       footerData,
-//     },
-//   };
-// };

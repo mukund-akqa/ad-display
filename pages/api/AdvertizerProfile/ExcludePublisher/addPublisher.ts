@@ -23,8 +23,14 @@ export default async function handler(
   let oldData = doc.data.advertizerProfile.matchingCriteria;
   //   console.log(oldData);
   let ans = oldData.excludePublishers.includes(publisher);
-  if (ans) {
-    res.status(400).json({ error: "Publisher already exists" });
+  let check = oldData.includePublishers.includes(publisher);
+  if (ans || check) {
+    res
+      .status(400)
+      .json({
+        error:
+          "Publisher already exists either in include or exclude publishers",
+      });
   } else {
     oldData.excludePublishers.push(publisher);
     let query = await faunaClient.query(

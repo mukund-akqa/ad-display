@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./Card.module.css";
 
 type CardProps = {
-  img: StaticImageData;
+  img: string;
   title: String;
   description: String;
 };
@@ -11,7 +11,13 @@ type CardProps = {
 const Card = ({ img, title, description }: CardProps) => {
   return (
     <div className={styles.card}>
-      <Image src={img} alt="card" className={styles.card__img} />
+      <img
+        src={img}
+        alt="card"
+        className={styles.card__img}
+        width={224}
+        height={176}
+      />
       <div className={styles.card__body}>
         <h2 className={styles.card__title}>{title}</h2>
         <p className={styles.card__description}>{description}</p>

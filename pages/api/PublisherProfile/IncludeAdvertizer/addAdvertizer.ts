@@ -23,8 +23,9 @@ export default async function handler(
   let oldData = doc.data.publisherProfile.matchingCriteria;
   console.log("oldData", oldData);
   let ans = oldData.includeAdvertizers.includes(advertizer);
-  if (ans) {
-    res.status(400).json({ error: "Advertizer already exists" });
+  let check = oldData.excludeAdvertizers.includes(advertizer)
+  if (ans || check) {
+    res.status(400).json({ error: "Advertizer already exists either in Include or Exclude Advertizers" });
   } else {
     oldData.includeAdvertizers.push(advertizer);
 

@@ -74,7 +74,7 @@ const ExcludePublisher = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
-          <h4>Exclude Publisher</h4>
+          <h4>Exclude Publisher Domain</h4>
           <CloseIcon onClick={onClose} className={styles.close_icon} />
         </div>
         <div className={styles.modal_body}>

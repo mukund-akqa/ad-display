@@ -1,148 +1,3 @@
-// import {
-//   ContentfulCollection,
-//   createClient,
-//   Entry,
-//   EntryCollection,
-// } from "contentful";
-// import ContentService from "../../src/util/content-service";
-// import { GetStaticProps, NextPage } from "next";
-// import React, { useEffect, useState } from "react";
-// import { updateComputedPropertyName } from "typescript";
-// import { IFooterFields } from "../../@types/generated/contentful";
-// import styles from "./Footer.module.css";
-// import { ParsedUrlQuery } from "querystring";
-
-// interface Props {
-//   footerData: IFooterFields[];
-// }
-
-// const Footer = () => {
-//   return (
-//     <>
-//       <footer className={styles.footer}>
-//         <div className={styles.footer_container}>
-//           <div className={styles.footer_container_row}>
-//             <div className={styles.footer_container_column}>
-//               <p className={styles.footer_heading_link}>About Us</p>
-//               <a href="#" className="footer_link">
-//                 footer_link_1
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_2
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_3
-//               </a>
-//             </div>
-//             <div className={styles.footer_container_column}>
-//               <p className="footer_heading_link">Services</p>
-//               <a href="#" className="footer_link">
-//                 footer_link_services
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_services
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_services
-//               </a>
-//             </div>
-//             <div className={styles.footer_container_column}>
-//               <p className="footer_heading_link">Contact US</p>
-//               <a href="#" className="footer_link">
-//                 footer_link_contactus
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_contactus
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_contactus
-//               </a>
-//             </div>
-//             <div className={styles.footer_container_column}>
-//               <p className={styles.footer_heading_link}>Social Media</p>
-//               <a href="#" className="footer_link">
-//                 footer_link_Social_Media
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_SocialMedia
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_SocilaMedia
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_SocialMedia
-//               </a>
-//               <a href="#" className="footer_link">
-//                 footer_link_SocilaMedia
-//               </a>
-//             </div>
-//           </div>
-//           <div className={styles.footer_copywrite}>
-//             <p>&copy;2023 AdXchange</p>
-//             <p>Made with ♥ in India</p>
-//           </div>
-//         </div>
-//       </footer>
-//     </>
-//   );
-// };
-
-// export default Footer;
-
-// const [results,setResults]=useState<null | EntryCollection<IFooterFields>>(null!)
-
-// const client = createClient({
-//         space: "zx1oww7gzayd",
-//         accessToken: "CCGg1vBRSts9iCobYeGq1Co7S510rlz5v-F3EB55GG8",
-//       });
-// useEffect(()=>{
-//     client.getEntries<IFooterFields>({
-//         content_type:'footer'
-//     })
-//     .then((res)=>{
-//         console.log(res.items)
-//         setResults(res)
-
-//     })
-//     .catch((error)=>console.error(error))
-// },[])
-
-// if(results && results.items.length > 0){
-//     const {fields} =results.items[0]
-//     const {footerHeadingTitle,footerLinks}=fields
-//     if(footerHeadingTitle && footerLinks){
-//         return (
-//             <footer className={styles.footer}>
-//       <div className={styles.footer_container}>
-//         <div className={styles.footer_container_row}>
-//           <div className={styles.footer_container_column}>
-//           <p className={styles.footer_heading_link}>{footerHeadingTitle}</p>
-//           {footerLinks.map((link)=>{
-//             <a href="#" className="footer_link">
-//             {link}
-//           </a>
-//           })}
-
-//           </div>
-//           </div>
-//           </div>
-//           </footer>
-//         )
-//     }
-// }
-
-// export async function getStaticProps() {
-//   const client = createClient({
-//     space: "zx1oww7gzayd",
-//     accessToken: "CCGg1vBRSts9iCobYeGq1Co7S510rlz5v-F3EB55GG8",
-//   });
-//   const res = await client.getEntries<EntryCollection<IFooterFields>>({ content_type: "footer" });
-//   return {
-//     props: {
-//       footer: res.items,
-//     },
-//   };
-// }
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faYoutube,
@@ -151,15 +6,70 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Footer.module.css";
+import { client as c } from "../../lib/contentfulClient";
+import * as contentful from "contentful";
+
+export const client = contentful.createClient({
+  space: "zx1oww7gzayd",
+  accessToken: "CCGg1vBRSts9iCobYeGq1Co7S510rlz5v-F3EB55GG8",
+});
 
 const Footer = () => {
+  const [data, setData] = useState<any>([]);
+
+  const fdata = async () => {
+    await c
+      .getEntries({
+        content_type: "footer",
+        limit: 2,
+        include: 10,
+      })
+      .then((entry: any) => {
+        console.log("akqa", entry);
+        const footerlinks = entry.items[0].fields.footerLinks;
+        setData(footerlinks);
+        // console.log(footerlinks);
+        footerlinks.map((item: any) => {
+          const { title, navLinks } = item.fields;
+          // console.log(title);
+          navLinks.map((link: any) => {
+            const { title, linkUrl } = link.fields;
+            // console.log(title);
+            // console.log(linkUrl);
+          });
+        });
+      });
+  };
+
+  useEffect(() => {
+    fdata();
+  }, []);
   return (
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
         <div className={styles.footer__container__row}>
-          <div className={styles.footer__container__col}>
+          {data.map((item: any) => {
+            const { title, navLinks } = item.fields;
+            return (
+              <div className={styles.footer__container__col}>
+                <h4>{title}</h4>
+                {navLinks.map((link: any) => {
+                  const { title, linkUrl } = link.fields;
+                  return (
+                    <ul>
+                      <li>
+                        <a href={linkUrl}>{title}</a>
+                      </li>
+                    </ul>
+                  );
+                })}
+              </div>
+            );
+          })}
+          {/* ---------------------*/}
+          {/* <div className={styles.footer__container__col}>
             <h4>company</h4>
             <ul>
               <li>
@@ -175,8 +85,8 @@ const Footer = () => {
                 <a href="#">affiliate program</a>
               </li>
             </ul>
-          </div>
-          <div className={styles.footer__container__col}>
+          </div> */}
+          {/* <div className={styles.footer__container__col}>
             <h4>get help</h4>
             <ul>
               <li>
@@ -212,22 +122,38 @@ const Footer = () => {
                 <a href="#">dress</a>
               </li>
             </ul>
-          </div>
+          </div>  */}
           <div className={styles.footer__container__col}>
             <h4>follow us</h4>
             <div className={styles.social_links}>
-              <a href="#" >
-			  	<FontAwesomeIcon icon={faYoutube} size="2x" className={styles.youtube}/>
+              <a href="#">
+                <FontAwesomeIcon
+                  icon={faYoutube}
+                  size="2x"
+                  className={styles.youtube}
+                />
               </a>
-              <a href="#" >
-                <FontAwesomeIcon icon={faFacebook} size="2x" className={styles.facebook}/>
+              <a href="#">
+                <FontAwesomeIcon
+                  icon={faFacebook}
+                  size="2x"
+                  className={styles.facebook}
+                />
               </a>
 
-              <a href="#" >
-                <FontAwesomeIcon icon={faInstagram} size="2x" className={styles.instagram}/>
+              <a href="#">
+                <FontAwesomeIcon
+                  icon={faInstagram}
+                  size="2x"
+                  className={styles.instagram}
+                />
               </a>
-              <a href="#" >
-                <FontAwesomeIcon icon={faTwitter} size="2x" className={styles.twitter}/>
+              <a href="#">
+                <FontAwesomeIcon
+                  icon={faTwitter}
+                  size="2x"
+                  className={styles.twitter}
+                />
               </a>
             </div>
           </div>

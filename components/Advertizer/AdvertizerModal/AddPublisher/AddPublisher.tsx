@@ -74,7 +74,7 @@ const AddPublisher = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
-          <h4>Include Publisher</h4>
+          <h4>Include Publisher Domain</h4>
           <CloseIcon onClick={onClose} className={styles.close_icon} />
         </div>
         <div className={styles.modal_body}>

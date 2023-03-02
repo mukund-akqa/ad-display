@@ -72,7 +72,7 @@ const ExcludeAdvertizer = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.modal_header}>
-          <h4>Exclude Advertizer</h4>
+          <h4>Exclude Advertizer Domain</h4>
           <CloseIcon onClick={handleModel} className={styles.close_icon} />
         </div>
         <div className={styles.modal_body}>

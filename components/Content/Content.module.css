@@ -4,7 +4,7 @@
 }
 .main__hero {
   min-height: 950px;
-  background: url("../../public/banner-3.jpg");
+  /* background: url("../../public/banner-3.jpg"); */
   background-size: cover;
   background-position: center;
   padding: 3rem;

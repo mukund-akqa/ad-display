@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import styles from "./PublisherProfilepage.module.css";
 import Spinner from "../../Spinner/Spinner";
+import Link from "next/link";
 
 type PublisherProfilePageProps = {
   pageName: any;
@@ -100,7 +101,9 @@ const PublisherProfilePage = ({
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
-        <p>PublisherProfile/Page Details</p>
+        {/* <p>PublisherProfile{" > "}Page Details</p> */}
+        <Link href={'/account/publisher'}>Publisher Profile</Link>
+        <span>{" > "}PageDetails</span>
         <div>
           <p className={styles.page_title}>PAGE-{pageName}</p>
           <div className={styles.page_details}>
