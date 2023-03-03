@@ -220,13 +220,14 @@ const PublisherProfile = () => {
                           <DeleteIcon />
                         </button>
                         <button
-                          onClick={() =>
+                          onClick={() => {
+                            document.body.style.overflow = "hidden";
                             handleChange(
                               item.pageName,
                               item.pageUrl,
                               id.toString()
-                            )
-                          }
+                            );
+                          }}
                           className={styles.icon}
                         >
                           <EditIcon />
@@ -235,7 +236,10 @@ const PublisherProfile = () => {
                     </tr>
                     <EditPage
                       editshow={editshow}
-                      onClose={() => setEditShow(false)}
+                      onClose={() => {
+                        setEditShow(false);
+                        document.body.style.overflow = "scroll";
+                      }}
                       data={editData}
                       pageData={pageData}
                     />
@@ -249,13 +253,17 @@ const PublisherProfile = () => {
             onClick={() => {
               setShow(true);
               console.log("clicked");
+              document.body.style.overflow = "hidden";
             }}
           >
             Add Page
           </button>
           <AddPage
             show={show}
-            onClose={() => setShow(false)}
+            onClose={() => {
+              setShow(false);
+              document.body.style.overflow = "scroll";
+            }}
             pageData={pageData}
           />
         </div>
@@ -295,13 +303,19 @@ const PublisherProfile = () => {
             </table>
             <button
               className={styles.button}
-              onClick={() => setShowAdvertizer(true)}
+              onClick={() => {
+                setShowAdvertizer(true);
+                document.body.style.overflow = "hidden";
+              }}
             >
               Add Advertizer
             </button>
             <AddAdvertizer
               showAdvertizer={showAdvertizer}
-              onClose={() => setShowAdvertizer(false)}
+              onClose={() => {
+                setShowAdvertizer(false);
+                document.body.style.overflow = "scroll";
+              }}
               Includedata={Includedata}
             />
           </div>
@@ -334,13 +348,19 @@ const PublisherProfile = () => {
             </table>
             <button
               className={styles.button}
-              onClick={() => setShowExcludedAdvertizer(true)}
+              onClick={() => {
+                setShowExcludedAdvertizer(true);
+                document.body.style.overflow = "hidden";
+              }}
             >
               Add Advertizer
             </button>
             <ExcludeAdvertizer
               showExcludedAdvertizer={showExcludedAdvertizer}
-              onClose={() => setShowExcludedAdvertizer(false)}
+              onClose={() => {
+                setShowExcludedAdvertizer(false);
+                document.body.style.overflow = "scroll";
+              }}
               Excludedata={Excludedata}
             />
           </div>

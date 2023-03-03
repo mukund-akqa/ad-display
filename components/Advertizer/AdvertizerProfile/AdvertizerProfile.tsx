@@ -156,13 +156,16 @@ const AdvertizerProfile = () => {
           </table>
           <button
             className={styles.button}
-            onClick={() => setShowCampaign(true)}
+            onClick={() => {setShowCampaign(true)
+              document.body.style.overflow = "hidden"}}
           >
             Add Campaign
           </button>
           <AddCampaign
             showCampaign={showCampaign}
-            onClose={() => setShowCampaign(false)}
+            onClose={() => {setShowCampaign(false)
+              document.body.style.overflow = "scroll"
+            }}
             campdata={campdata}
           />
         </div>

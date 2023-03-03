@@ -1,5 +1,6 @@
 .page {
   flex: 4;
+  overflow-y: hidden;
 }
 .table {
   border-collapse: collapse;

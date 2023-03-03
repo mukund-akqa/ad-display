@@ -102,7 +102,7 @@ const PublisherProfilePage = ({
     <div className={styles.page}>
       <div className={styles.page_container}>
         {/* <p>PublisherProfile{" > "}Page Details</p> */}
-        <Link href={'/account/publisher'}>Publisher Profile</Link>
+        <Link href={"/account/publisher"}>Publisher Profile</Link>
         <span>{" > "}PageDetails</span>
         <div>
           <p className={styles.page_title}>PAGE-{pageName}</p>
@@ -139,14 +139,15 @@ const PublisherProfilePage = ({
                         <DeleteIcon />
                       </button>
                       <button
-                        onClick={() =>
+                        onClick={() => {
+                          document.body.style.overflow = "hidden";
                           onUpdate(
                             item.slotId,
                             item.slotHeight,
                             item.slotWidth,
                             id.toString()
-                          )
-                        }
+                          );
+                        }}
                         className={styles.icon}
                       >
                         <EditIcon />
@@ -161,7 +162,7 @@ const PublisherProfilePage = ({
             className={styles.button}
             onClick={() => {
               setShow(true);
-
+              document.body.style.overflow = "hidden";
               console.log("clicked");
             }}
           >
@@ -169,13 +170,19 @@ const PublisherProfilePage = ({
           </button>
           <AddSlot
             show={show}
-            onClose={() => setShow(false)}
+            onClose={() => {
+              setShow(false);
+              document.body.style.overflow = "scroll";
+            }}
             pageName={pageName}
             slotData={slotData}
           />
           <EditSlot
             editModal={editModal}
-            onClose={() => setEditModal(false)}
+            onClose={() => {
+              setEditModal(false);
+              document.body.style.overflow = "scroll";
+            }}
             data={editData}
             slotData={slotData}
           />

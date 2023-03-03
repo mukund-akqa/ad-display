@@ -11,7 +11,7 @@ type MatchingCriteriaProps = {
 
 const MatchingCriteria = (props: MatchingCriteriaProps) => {
   const [showIncludedPublisher, setShowIncludedPublisher] = useState(false);
-  const [showExcludedPublisher,setShowExcludedPublisher] = useState(false)
+  const [showExcludedPublisher, setShowExcludedPublisher] = useState(false);
   const [includePublishers, setIncludePublishers] = useState([]);
   const [excludePublishers, setExcludePublishers] = useState([]);
   const [IncludedataUpdated, setIncludeDataUpdated] = useState(false);
@@ -23,7 +23,7 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
     setExcludeDataUpdated(value);
   };
 
-  const deleteIncludePublisher = async(item:string) =>{
+  const deleteIncludePublisher = async (item: string) => {
     console.log("dleete");
     await fetch("/api/AdvertizerProfile/IncludePublisher/deletePublisher", {
       method: "POST",
@@ -44,8 +44,8 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
         // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
-  }
-  const deleteExcludePublisher = async(item:string) =>{
+  };
+  const deleteExcludePublisher = async (item: string) => {
     console.log("dleete");
     await fetch("/api/AdvertizerProfile/ExcludePublisher/deletePublisher", {
       method: "POST",
@@ -66,7 +66,7 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
         // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
-  }
+  };
 
   useEffect(() => {
     fetch("/api/AdvertizerProfile/IncludePublisher/getPublisher", {
@@ -82,7 +82,7 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
     })
       .then((data) => data.json())
       .then((data) => setIncludePublishers(data.pageData));
-      setIncludeDataUpdated(false);
+    setIncludeDataUpdated(false);
   }, [IncludedataUpdated]);
   useEffect(() => {
     fetch("/api/AdvertizerProfile/ExcludePublisher/getPublisher", {
@@ -98,7 +98,7 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
     })
       .then((data) => data.json())
       .then((data) => setExcludePublishers(data.pageData));
-      setExcludeDataUpdated(false)
+    setExcludeDataUpdated(false);
   }, [ExcludedataUpdated]);
   return (
     <div>
@@ -113,11 +113,14 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
         <tbody>
           {props.heading === "Include Publisher" ? (
             <>
-              {includePublishers.map((item,id) => (
+              {includePublishers.map((item, id) => (
                 <tr key={id}>
                   <td className={styles.table_data}>{item}</td>
                   <td className={styles.table_data}>
-                    <button className={styles.icon} onClick={()=>deleteIncludePublisher(item)}>
+                    <button
+                      className={styles.icon}
+                      onClick={() => deleteIncludePublisher(item)}
+                    >
                       <DeleteIcon />
                     </button>
                   </td>
@@ -126,17 +129,20 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
             </>
           ) : (
             <>
-            {excludePublishers.map((item,id) => (
-              <tr key={id}>
-                <td className={styles.table_data}>{item}</td>
-                <td className={styles.table_data}>
-                  <button className={styles.icon} onClick={()=>deleteExcludePublisher(item)}>
-                    <DeleteIcon />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </>
+              {excludePublishers.map((item, id) => (
+                <tr key={id}>
+                  <td className={styles.table_data}>{item}</td>
+                  <td className={styles.table_data}>
+                    <button
+                      className={styles.icon}
+                      onClick={() => deleteExcludePublisher(item)}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </>
           )}
         </tbody>
       </table>
@@ -145,25 +151,37 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
           className={styles.button}
           onClick={() => {
             setShowIncludedPublisher(true);
+            document.body.style.overflow = "hidden";
           }}
         >
           Add Publisher
         </button>
       ) : (
-        <button className={styles.button} onClick={() => {
-            setShowExcludedPublisher(true)
-        }}>Add Publisher</button>
+        <button
+          className={styles.button}
+          onClick={() => {
+            setShowExcludedPublisher(true);
+            document.body.style.overflow = "hidden";
+          }}
+        >
+          Add Publisher
+        </button>
       )}
 
       <AddPublisher
         showIncludedPublisher={showIncludedPublisher}
-        onClose={() => setShowIncludedPublisher(false)}
-        Includedata={Includedata} 
-
+        onClose={() => {
+          setShowIncludedPublisher(false);
+          document.body.style.overflow = "scroll";
+        }}
+        Includedata={Includedata}
       />
       <ExcludePublisher
         showExcludedPublisher={showExcludedPublisher}
-        onClose={() => setShowExcludedPublisher(false)}
+        onClose={() => {
+          setShowExcludedPublisher(false);
+          document.body.style.overflow = "scroll";
+        }}
         Excludedata={Excludedata}
       />
     </div>

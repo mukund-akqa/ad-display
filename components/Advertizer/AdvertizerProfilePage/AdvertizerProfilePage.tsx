@@ -157,7 +157,7 @@ const AdvertizerProfilePage = ({
                       </button>
                       <button
                         className={styles.icon}
-                        onClick={() =>
+                        onClick={() => {
                           editAd(
                             item.adId,
                             item.assetType,
@@ -165,8 +165,9 @@ const AdvertizerProfilePage = ({
                             item.assetHeight,
                             item.assetWidth,
                             id.toString()
-                          )
-                        }
+                          );
+                          document.body.style.overflow = "hidden";
+                        }}
                       >
                         <EditIcon />
                       </button>
@@ -176,18 +177,30 @@ const AdvertizerProfilePage = ({
               ))}
             </tbody>
           </table>
-          <button className={styles.button} onClick={() => setAddModal(true)}>
+          <button
+            className={styles.button}
+            onClick={() => {
+              setAddModal(true);
+              document.body.style.overflow = "hidden";
+            }}
+          >
             Add Advertisement
           </button>
           <AddAdvertisement
             addModal={addModal}
-            onClose={() => setAddModal(false)}
+            onClose={() => {
+              setAddModal(false);
+              document.body.style.overflow = "scroll";
+            }}
             campaignName={campaignName}
             addata={addata}
           />
           <EditAdvertisement
             editModal={editModal}
-            onClose={() => setEditModal(false)}
+            onClose={() => {
+              setEditModal(false);
+              document.body.style.overflow = "scroll";
+            }}
             data={editData}
             addata={addata}
           />
