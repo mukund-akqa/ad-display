@@ -43,7 +43,7 @@ const Header = () => {
         }}/>
         <ul className={isNavExpanded ? styles.nav_links_expanded : styles.nav_links}>
           <li>
-            {state ? <Link href="/login" className={styles.nav_text} onClick={handleLogout}>
+            {state ? <Link href="/" className={styles.nav_text} onClick={handleLogout}>
               Logout
             </Link>
             :
