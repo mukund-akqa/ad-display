@@ -1,16 +1,14 @@
 .cardlist {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 4rem;
-    justify-content: space-around;
-    margin: 4rem;
-    
-    
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 4rem;
+  justify-content: space-around;
+  margin: 4rem;
+}
 
-@media screen and (min-width:600px){
-  .cardlist{
-    grid-template-columns:repeat(auto-fit, minmax(14rem, 16rem));
-    
+@media screen and (min-width: 600px) {
+  .cardlist {
+    /* grid-template-columns: repeat(auto-fit, minmax(14rem, 16rem)); */
+    grid-template-columns: auto auto auto auto;
   }
 }

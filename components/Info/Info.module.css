@@ -57,7 +57,7 @@
 }
 @media screen and (max-width: 1400px) {
   .info__container{
-    margin: 4rem 5rem;
+    margin: 4rem 4rem;
   }
   .info__container__text h1 {
     font-size: 2rem;
