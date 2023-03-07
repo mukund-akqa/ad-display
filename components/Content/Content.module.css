@@ -3,7 +3,7 @@
   grid-gap: 20px;
 }
 .main__hero {
-  min-height: 950px;
+  min-height: 91.2vh;
   /* background: url("../../public/banner-3.jpg"); */
   background-size: cover;
   background-position: center;

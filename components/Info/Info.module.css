@@ -1,6 +1,5 @@
 .info__container {
   display: flex;
-  /* align-items: center; */
   gap: 5rem;
   margin: 4rem 7rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -8,7 +7,7 @@
 }
 
 .info__image {
-  width: 400px;
+  max-width: 400px;
   height: auto;
   object-fit: cover;
 }
@@ -56,8 +55,14 @@
     margin: 10px auto;
   }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
+  .info__container{
+    margin: 4rem 5rem;
+  }
   .info__container__text h1 {
     font-size: 2rem;
+  }
+  .info__container__text p {
+    font-size: 0.9rem;
   }
 }
