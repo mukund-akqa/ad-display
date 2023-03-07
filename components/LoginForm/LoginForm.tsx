@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./LoginForm.module.css";
 import card2 from "../../public/card2.jpg";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Alert } from "@mui/material";
+import { client } from "../../lib/contentfulClient";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [data, setData] = useState<any>([]);
 
   const router = useRouter();
+  const getLoginData = async () => {
+    try {
+      const response = await client.getEntries({ content_type: "login" });
+      const responseData: any = response.items;
+      setData(responseData);
+      console.log(responseData)
+      console.log(responseData[0].fields.loginImage.fields.file.url)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(()=>{
+    getLoginData()
+  },[])
 
   const requestOptions = {
     method: "POST",
@@ -83,7 +99,8 @@ const LoginForm = () => {
           </Link>
         </p>
       </div>
-      <Image src={card2} alt="form" className={styles.form__image} />
+      {/* <Image src={card2} alt="form" className={styles.form__image} /> */}
+      <img src={data[0]?.fields.loginImage.fields.file.url} alt="form"  className={styles.form__image}/>
     </div>
   );
 };

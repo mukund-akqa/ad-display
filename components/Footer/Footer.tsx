@@ -23,7 +23,7 @@ const Footer = () => {
         include: 10,
       })
       .then((entry: any) => {
-        console.log("akqa", entry);
+        // console.log("akqa", entry);
         const footerlinks = entry.items[0].fields.footerLinks;
         setData(footerlinks);
         // console.log(footerlinks);
@@ -46,7 +46,7 @@ const Footer = () => {
         include: 10,
       })
       .then((entry: any) => {
-        console.log(entry);
+        // console.log(entry);
 
         setSocialData(entry.items[0].fields);
         const { title, socialIcon } = entry.items[0].fields;
@@ -55,7 +55,7 @@ const Footer = () => {
         socialIcon.map((item: any) => {
           // console.log(item.fields.title);
           // console.log(item.fields.url);
-          console.log(item.fields.icon.fields.file.url);
+          // console.log(item.fields.icon.fields.file.url);
         });
 
         /*  console.log(entry.)*/
@@ -180,7 +180,7 @@ const Footer = () => {
 
             <div className={styles.social_links}>
               {socialData?.socialIcon.map((item: any) => {
-                console.log(item.fields.icon.fields.file.url);
+                // console.log(item.fields.icon.fields.file.url);
                 return (
                   <a href={item.fields.url}>
                     <img

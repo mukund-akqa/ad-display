@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./RegisterForm.module.css";
 import card4 from "../../public/card4.jpg";
 import { useRouter } from "next/router";
 import { Alert } from "@mui/material";
 import { StyleRegistry } from "styled-jsx";
+
+import { client } from "../../lib/contentfulClient";
 
 type Response = {
   name: string;
@@ -25,7 +27,24 @@ const RegisterForm = () => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [data, setData] = useState<any>([]);
   const router = useRouter();
+
+
+  const getRegisterData = async () => {
+    try {
+      const response = await client.getEntries({ content_type: "register" });
+      const responseData: any = response.items;
+      setData(responseData);
+      console.log(responseData)
+      console.log(responseData[0].fields.loginImage.fields.file.url)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(()=>{
+    getRegisterData()
+  },[])
 
   const requestOptions = {
     method: "POST",
@@ -153,7 +172,8 @@ const RegisterForm = () => {
         </p>
         {error && <Alert severity="error">{errorMessage}</Alert>}
       </div>
-      <Image src={card4} alt="form" className={styles.form__image} />
+      {/* <Image src={card4} alt="form" className={styles.form__image} /> */}
+      <img src={data[0]?.fields.registerImage.fields.file.url} alt="form"  className={styles.form__image}/>
     </div>
   );
 };
