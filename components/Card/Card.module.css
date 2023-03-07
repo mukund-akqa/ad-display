@@ -11,16 +11,17 @@
 }
 .card__img {
   width: 14rem;
-  height: 11rem;
-  object-fit: cover;
+  height: auto;
 }
 .card__body {
   margin: 1rem;
   flex-grow: 1;
+  text-align: center;
 }
 .card__title {
   line-height: 1.4rem;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 .card__description {
   line-height: 1.2rem;

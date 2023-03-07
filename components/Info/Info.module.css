@@ -30,6 +30,7 @@
   color: #fff;
   border-radius: 30px;
   width: fit-content;
+  
 }
 .info__container__text a:hover {
   background-color: #eee;
@@ -53,10 +54,16 @@
   .info__container__text a {
     text-align: center;
     margin: 10px auto;
+    margin-bottom: 20px;
+  }
+  .info__image {
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
   }
 }
 @media screen and (max-width: 1400px) {
-  .info__container{
+  .info__container {
     margin: 4rem 4rem;
   }
   .info__container__text h1 {
