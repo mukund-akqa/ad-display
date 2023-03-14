@@ -1,23 +1,17 @@
-import styled from "@emotion/styled";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { mutate } from "swr";
 import AddAdvertizer from "../Modal/AddAdvertizer/AddAdvertizer";
 import AddPage from "../Modal/AddPage/AddPage";
 import EditPage from "../Modal/EditPage/EditPage";
 import ExcludeAdvertizer from "../Modal/ExcludeAdvertizer/ExcludeAdvertizer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-
 import styles from "./PublisherProfile.module.css";
 
 type item = {
   pageName: string;
   pageUrl: string;
   id: string;
-};
-type advertizer = {
-  advertizer: string;
 };
 
 const PublisherProfile = () => {
@@ -31,12 +25,12 @@ const PublisherProfile = () => {
   const [dataUpdated, setDataUpdated] = useState(false);
   const [IncludedataUpdated, setIncludeDataUpdated] = useState(false);
   const [ExcludedataUpdated, setExcludeDataUpdated] = useState(false);
-
   const [editData, setEditData] = useState({
     pageName: "",
     pageUrl: "",
     id: "",
   });
+
   const pageData = (value: boolean) => {
     setDataUpdated(value);
   };
@@ -46,8 +40,8 @@ const PublisherProfile = () => {
   const Excludedata = (value: boolean) => {
     setExcludeDataUpdated(value);
   };
+
   const handleAction = async (pageName: string) => {
-    console.log(pageName);
     await fetch("/api/PublisherProfile/Webpages/deletePage", {
       method: "POST",
       headers: {
@@ -64,12 +58,11 @@ const PublisherProfile = () => {
         res.json().then((data) => {
           setTableData(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
+
   const onDelete = async (item: string) => {
-    console.log("dleete");
     await fetch("/api/PublisherProfile/IncludeAdvertizer/deleteInAdvertizer", {
       method: "POST",
       headers: {
@@ -86,7 +79,6 @@ const PublisherProfile = () => {
         res.json().then((data) => {
           setIncludeAdvertizers(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
@@ -109,10 +101,10 @@ const PublisherProfile = () => {
         res.json().then((data) => {
           setExcludeAdvertizers(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
+
   const handleChange = (pageName: string, pageUrl: string, id: string) => {
     setEditShow(true);
     setEditData({
@@ -120,9 +112,6 @@ const PublisherProfile = () => {
       pageUrl,
       id,
     });
-    // console.log(pageName,pageUrl)
-
-    // console.log(editData);
   };
 
   useEffect(() => {
@@ -141,6 +130,7 @@ const PublisherProfile = () => {
       .then((data) => setTableData(data.pageData));
     setDataUpdated(false);
   }, [dataUpdated]);
+
   useEffect(() => {
     fetch("/api/PublisherProfile/IncludeAdvertizer/getIncludeAdvertizer", {
       method: "POST",
@@ -194,7 +184,7 @@ const PublisherProfile = () => {
                 const linkUrl = item.pageName
                   .replace(/\s+/g, "-")
                   .toLowerCase();
-                // console.log("linkUrl",linkUrl)
+
                 return (
                   <>
                     <tr key={id} id={id.toString()}>
@@ -252,7 +242,7 @@ const PublisherProfile = () => {
             className={styles.button}
             onClick={() => {
               setShow(true);
-              console.log("clicked");
+
               document.body.style.overflow = "hidden";
             }}
           >
@@ -295,11 +285,6 @@ const PublisherProfile = () => {
                   </>
                 ))}
               </tbody>
-              {/* <EditAddAdvertizer
-                showAddAdvertizer={showAddAdvertizer}
-                onClose={() => setShowAddAdvertizer(false)}
-                data={editAddAdvertizerData}
-              /> */}
             </table>
             <button
               className={styles.button}

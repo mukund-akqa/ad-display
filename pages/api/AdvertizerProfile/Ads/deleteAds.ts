@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 import S3 from "aws-sdk/clients/s3";
 type Data = {
@@ -15,7 +15,10 @@ const s3 = new S3({
   secretAccessKey: process.env.SECRET_KEY,
   signatureVersion: "v4",
 });
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   const { refId, adId, campaignName, assetUrl } = req.body.data;
   console.log("asseturl", assetUrl);
   const bucketkey = assetUrl.split("amazonaws.com/")[1];
@@ -37,27 +40,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   let campaignData = doc.data.advertizerProfile.campaigns;
   let obj = campaignData.find((x: any) => x.campaignName == campaignName);
-  //   console.log("obj",obj)
+
   let index = campaignData.indexOf(obj);
-  //   console.log("Indexx",index)
 
   const updatedData = obj.ads.filter((item: any) => item.adId != adId);
-    // console.log("updated Data", updatedData);
 
   console.log(campaignData);
-  //   console.log(obj.adSlots)
-  //   console.log("obj",obj)
-  //   console.log(updatedData)
+
   obj.ads = updatedData;
-  //   console.log(obj)
 
   campaignData.slice(index, 1, obj);
-  //     console.log(pageData[0])
-  //   console.log("pageData",pageData)
-  //   const newData=pageData.filter((item:any)=>item.pageName!=obj.pageName)
 
-  //   newData.push(obj)
-  //   console.log("newData",newData)
   let query = await faunaClient.query(
     q.Update(q.Ref(q.Collection("demo_collection"), refId), {
       data: {
@@ -67,6 +60,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       },
     })
   );
-  // console.log(doc)
+
   res.status(200).json({ updatedData: updatedData });
-};
+}

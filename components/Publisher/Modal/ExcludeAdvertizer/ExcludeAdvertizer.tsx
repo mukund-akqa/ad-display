@@ -36,28 +36,19 @@ const ExcludeAdvertizer = ({
             advertizer: advertizer,
           },
         }),
-      })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     Excludedata(true);
-        //     setAdvertizer("");
-        //   });
-        // onClose();
-        .then((res) => {
-          if (res.status === 200) {
-            res.json().then((data) => {
-              console.log(data);
-              Excludedata(true);
-              handleModel();
-            });
-          } else {
-            res.json().then((data) => {
-              setError(true);
-              setErrorMessage(data.error);
-            });
-          }
-        });
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            Excludedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
+      });
     }
   };
   const handleModel = () => {
@@ -89,10 +80,6 @@ const ExcludeAdvertizer = ({
                 onChange={(e) => setAdvertizer(e.target.value)}
               />
             </div>
-
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Exclude
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>
@@ -102,9 +89,7 @@ const ExcludeAdvertizer = ({
           >
             Exclude
           </button>
-          {/* <button className={styles.modal_button} onClick={onClose}>
-            Close
-          </button> */}
+
           <button className={styles.modal_button} onClick={handleModel}>
             Close
           </button>

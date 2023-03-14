@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
   name?: string;
-  error?:string;
+  error?: string;
 };
 
 type doc = {
@@ -23,9 +23,14 @@ export default async function handler(
   let oldData = doc.data.publisherProfile.matchingCriteria;
   console.log("oldData", oldData);
   let ans = oldData.includeAdvertizers.includes(advertizer);
-  let check = oldData.excludeAdvertizers.includes(advertizer)
+  let check = oldData.excludeAdvertizers.includes(advertizer);
   if (ans || check) {
-    res.status(400).json({ error: "Advertizer already exists either in Include or Exclude Advertizers" });
+    res
+      .status(400)
+      .json({
+        error:
+          "Advertizer already exists either in Include or Exclude Advertizers",
+      });
   } else {
     oldData.includeAdvertizers.push(advertizer);
 

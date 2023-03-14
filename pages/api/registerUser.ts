@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../lib/fauna";
+import { faunaClient } from "../../utils/fauna";
 import { query as q, Ref } from "faunadb";
 
 type Data = {
@@ -25,7 +25,7 @@ export default async function handler(
   let check = await faunaClient.query(
     q.Exists(q.Match(q.Index("email_index"), email))
   );
-  console.log("check", check);
+
   if (check) {
     res.status(400).json({ error: "email already exists" });
   } else {
@@ -59,12 +59,7 @@ export default async function handler(
       })
     );
     let refId = query.ref.id;
-    console.log(query);
-    console.log(refId);
 
-    //   query.data.map()
-
-    // res.status(200).json({ name: 'John Doe' })
     res.status(200).json({
       name: name,
       email: email,
@@ -74,6 +69,4 @@ export default async function handler(
       siteName: siteName,
     });
   }
-
-  //   res.send({name:name,email:email,password:password,copassword:copassword,refId:refId })
 }

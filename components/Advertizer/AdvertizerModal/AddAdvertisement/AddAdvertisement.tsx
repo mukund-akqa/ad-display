@@ -46,7 +46,7 @@ const AddAdvertisement = ({
       type: file.type,
     });
     const url = data.url;
-    console.log("url", url);
+
     await axios
       .put(url, file, {
         headers: {
@@ -55,9 +55,7 @@ const AddAdvertisement = ({
         },
       })
       .then(() => {
-        console.log("done");
         const imageUrl = url.split("?")[0];
-        console.log(imageUrl);
         setAssetUrl(imageUrl);
         setButtonText("uploaded");
       })
@@ -101,14 +99,7 @@ const AddAdvertisement = ({
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            console.log(data);
-            onClose();
-            setAdId("");
-            setAssetType("");
-            setAssetUrl("");
-            setAssetHeight("");
-            setAssetWidth("");
-            setFile(null);
+            handleModel()
             addata(true);
           });
         } else {
@@ -123,6 +114,12 @@ const AddAdvertisement = ({
 
   const handleModel = () => {
     onClose();
+    setAdId("");
+    setAssetType("");
+    setAssetUrl("");
+    setAssetHeight("");
+    setAssetWidth("");
+    setFile(null);
     setError(false);
   };
 
@@ -160,15 +157,7 @@ const AddAdvertisement = ({
                 required
               />
             </div>
-            {/* <div className={styles.form__input}>
-              <input
-                type="text"
-                placeholder="Asset Url"
-                name="assetUrl"
-                value={assetUrl}
-                onChange={(e) => setAssetUrl(e.target.value)}
-              />
-            </div> */}
+
             <div className={styles.form__input}>
               <label className={styles.form__input__label}>Asset</label>
               <input
@@ -191,7 +180,6 @@ const AddAdvertisement = ({
                 <div className={styles.preview}>
                   <Image
                     src={URL.createObjectURL(file)}
-                    // className={styles.image}
                     alt="Thumb"
                     width={320}
                     height={220}
@@ -227,10 +215,6 @@ const AddAdvertisement = ({
                 required
               />
             </div>
-            {/* {error && <Alert severity="error">{errorMessage}</Alert>}
-            <button className={styles.modal_button} onClick={handleClick}>
-              Add Ad
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

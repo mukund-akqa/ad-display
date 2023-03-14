@@ -24,7 +24,6 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
   };
 
   const deleteIncludePublisher = async (item: string) => {
-    console.log("dleete");
     await fetch("/api/AdvertizerProfile/IncludePublisher/deletePublisher", {
       method: "POST",
       headers: {
@@ -41,12 +40,10 @@ const MatchingCriteria = (props: MatchingCriteriaProps) => {
         res.json().then((data) => {
           setIncludePublishers(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
   const deleteExcludePublisher = async (item: string) => {
-    console.log("dleete");
     await fetch("/api/AdvertizerProfile/ExcludePublisher/deletePublisher", {
       method: "POST",
       headers: {

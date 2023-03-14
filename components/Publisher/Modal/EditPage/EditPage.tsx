@@ -7,17 +7,15 @@ type EditPageProps = {
   editshow: boolean;
   onClose: any;
   data: { pageName: string; pageUrl: string; id: string };
-  pageData:any
+  pageData: any;
 };
 const EditPage = ({ editshow, onClose, data, pageData }: EditPageProps) => {
-  
   if (!editshow) {
     return null;
   }
   const [pageName, setPageName] = useState(data.pageName);
   const [pageUrl, setPageUrl] = useState(data.pageUrl);
 
-  //   console.log("data ====>", data);
   const handleClick = async (e: any) => {
     e.preventDefault();
     await fetch("/api/PublisherProfile/Webpages/EditPage", {
@@ -36,8 +34,7 @@ const EditPage = ({ editshow, onClose, data, pageData }: EditPageProps) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        pageData(true)
+        pageData(true);
       });
     onClose();
   };
@@ -73,9 +70,6 @@ const EditPage = ({ editshow, onClose, data, pageData }: EditPageProps) => {
                 onChange={(e) => setPageUrl(e.target.value)}
               />
             </div>
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Edit
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

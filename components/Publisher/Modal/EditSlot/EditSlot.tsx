@@ -11,13 +11,11 @@ type EditSlotProps = {
     slotWidth: string;
     id: string;
     pageName: string;
-    
   };
-  slotData:any
+  slotData: any;
 };
 
 const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
- 
   if (!editModal) {
     return null;
   }
@@ -27,7 +25,7 @@ const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
 
   const handleClick = async (e: any) => {
     e.preventDefault();
-    // console.log(data.id)
+
     await fetch("/api/PublisherProfile/Slots/EditSlot", {
       method: "POST",
       headers: {
@@ -46,8 +44,7 @@ const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        slotData(true)
+        slotData(true);
       });
     onClose();
   };
@@ -93,13 +90,13 @@ const EditSlot = ({ editModal, onClose, data, slotData }: EditSlotProps) => {
                 onChange={(e) => setSlotWidth(e.target.value)}
               />
             </div>
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Edit Slot
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>
-          <button className={styles.modal_button} onClick={(e)=>handleClick(e)}>
+          <button
+            className={styles.modal_button}
+            onClick={(e) => handleClick(e)}
+          >
             Add Slot
           </button>
           <button className={styles.modal_button} onClick={onClose}>

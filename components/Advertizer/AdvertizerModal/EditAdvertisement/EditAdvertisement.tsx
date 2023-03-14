@@ -18,14 +18,14 @@ type EditAdvertisementProps = {
     campaignName: string;
     id: string;
   };
-  addata:any
+  addata: any;
 };
 
 const EditAdvertisement = ({
   editModal,
   onClose,
   data,
-  addata
+  addata,
 }: EditAdvertisementProps) => {
   if (!editModal) {
     return null;
@@ -50,7 +50,7 @@ const EditAdvertisement = ({
       type: file.type,
     });
     const url = data.url;
-    console.log("url", url);
+
     await axios
       .put(url, file, {
         headers: {
@@ -59,9 +59,7 @@ const EditAdvertisement = ({
         },
       })
       .then(() => {
-        console.log("done");
         const imageUrl = url.split("?")[0];
-        console.log(imageUrl);
         setAssetUrl(imageUrl);
         setButtonText("uploaded");
       })
@@ -97,16 +95,13 @@ const EditAdvertisement = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setFile(null);
-        addata(true)
+        addata(true);
       });
 
     onClose();
   };
-  useEffect(() => {
-    console.log("assetUrl", assetUrl);
-  });
+
   return (
     <div className={styles.modal} onClick={onClose}>
       <div
@@ -139,15 +134,6 @@ const EditAdvertisement = ({
                 onChange={(e) => setAssetType(e.target.value)}
               />
             </div>
-            {/* <div className={styles.form__input}>
-            <input
-              type="text"
-              placeholder="Asset Url"
-              name="assetUrl"
-              value={assetUrl}
-              onChange={(e) => setAssetUrl(e.target.value)}
-            />
-          </div> */}
             <div className={styles.form__input}>
               <label className={styles.form__input__label}>Asset</label>
               <input
@@ -183,13 +169,7 @@ const EditAdvertisement = ({
                 </div>
               ) : (
                 <div className={styles.preview}>
-                  <Image
-                    src={assetUrl}
-                    // className={styles.image}
-                    alt="Thumb"
-                    width={320}
-                    height={220}
-                  />
+                  <Image src={assetUrl} alt="Thumb" width={320} height={220} />
                   <button
                     onClick={(e) => uploadFile(e)}
                     className={styles.modal_button}
@@ -219,9 +199,6 @@ const EditAdvertisement = ({
                 onChange={(e) => setAssetWidth(e.target.value)}
               />
             </div>
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Edit Ad
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

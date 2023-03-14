@@ -38,27 +38,19 @@ const AddPublisher = ({
             publisher: publisher,
           },
         }),
-      })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     Includedata(true);
-        //   });
-        // onClose();
-        .then((res) => {
-          if (res.status === 200) {
-            res.json().then((data) => {
-              console.log(data);
-              Includedata(true);
-              handleModel();
-            });
-          } else {
-            res.json().then((data) => {
-              setError(true);
-              setErrorMessage(data.error);
-            });
-          }
-        });
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            Includedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
+      });
     }
   };
   const handleModel = () => {
@@ -89,10 +81,6 @@ const AddPublisher = ({
                 onChange={(e) => setPublisher(e.target.value)}
               />
             </div>
-
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Include
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

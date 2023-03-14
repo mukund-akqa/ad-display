@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
@@ -14,19 +14,14 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const { refId, campaignName } = req.body.data;
-  // console.log(campaignName);
 
   let doc: doc = await faunaClient.query(
     q.Get(q.Ref(q.Collection("demo_collection"), refId))
   );
-  // console.log("doc", doc);
 
   let adsData = doc.data.advertizerProfile.campaigns;
-  // console.log("adsData", adsData);
-  let obj = adsData.find((x: any) => x.campaignName == campaignName);
-  // console.log("obj", obj);
 
-  //   console.log(obj.ads);
+  let obj = adsData.find((x: any) => x.campaignName == campaignName);
 
   res.status(200).json({ adsData: obj.ads });
 }

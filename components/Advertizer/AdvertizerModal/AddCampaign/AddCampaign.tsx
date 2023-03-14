@@ -24,7 +24,6 @@ const AddCampaign = ({ showCampaign, onClose, campdata }: AddCampaignProps) => {
       setError(true);
       setErrorMessage("Data not entered");
     } else {
-      console.log(landingPageUrl);
       e.preventDefault();
       await fetch("/api/AdvertizerProfile/Campaign/addCampaign", {
         method: "POST",
@@ -41,12 +40,8 @@ const AddCampaign = ({ showCampaign, onClose, campdata }: AddCampaignProps) => {
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            console.log("addData", data);
-            console.log(data.campaign);
             campdata(true);
-            onClose();
-            setCampaignName("");
-            setLandingPageUrl("");
+            handleModel()
           });
         } else {
           res.json().then((data) => {
@@ -101,10 +96,6 @@ const AddCampaign = ({ showCampaign, onClose, campdata }: AddCampaignProps) => {
                 required
               />
             </div>
-            {/* {error && <Alert severity="error">{errorMessage}</Alert>}
-            <button className={styles.modal_button} onClick={handleClick}>
-              Add
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>
@@ -114,9 +105,7 @@ const AddCampaign = ({ showCampaign, onClose, campdata }: AddCampaignProps) => {
           >
             Add Campaign
           </button>
-          {/* <button className={styles.modal_button} onClick={onClose}>
-            Close
-          </button> */}
+
           <button className={styles.modal_button} onClick={handleModel}>
             Close
           </button>

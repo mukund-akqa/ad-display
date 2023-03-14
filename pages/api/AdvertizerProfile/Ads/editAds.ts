@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import S3 from "aws-sdk/clients/s3";
 
 type Data = {
-  updatedData:any
+  updatedData: any;
 };
 
 type doc = {
@@ -18,7 +18,10 @@ const s3 = new S3({
   signatureVersion: "v4",
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   const {
     refId,
     adId,
@@ -28,18 +31,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     campaignName,
     assetType,
     assetUrl,
-    oldUrl
+    oldUrl,
   } = req.body.data;
-  const bucketkey=oldUrl.split("amazonaws.com/")[1]
+  const bucketkey = oldUrl.split("amazonaws.com/")[1];
   const bucketParams = { Bucket: process.env.S3_BUCKET_NAME!, Key: bucketkey };
-  const deleteObject = await s3.deleteObject(bucketParams,(err,data)=>{
-    if(err) {
-      console.log(err)
-    }else{
-      console.log("successfully deleted")
-      console.log(data)
+  const deleteObject = await s3.deleteObject(bucketParams, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("successfully deleted");
+      console.log(data);
     }
-  })
+  });
   let doc: doc = await faunaClient.query(
     q.Get(q.Ref(q.Collection("demo_collection"), refId))
   );
@@ -50,20 +53,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     assetHeight,
     assetWidth,
   };
-  
+
   let campaignData = doc.data.advertizerProfile.campaigns;
   let obj = campaignData.find((x: any) => x.campaignName == campaignName);
   let objIndex = campaignData.findIndex(
     (index: any) => index.campaignName == campaignName
   );
-  // console.log("objIndex", objIndex);
-  // console.log("obj", obj);
+
   const ads = obj.ads;
 
   ads[id] = ad_details;
 
   obj.ads = ads;
-  // console.log(obj);
+
   campaignData[objIndex] = obj;
 
   let query = await faunaClient.query(
@@ -75,14 +77,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       },
     })
   );
-//   try {
-//     const data = await s3.send(new DeleteObjectCommand(bucketParams));
-//     console.log("Success. Object deleted.", data);
-//     return data; // For unit tests.
-//   } catch (err) {
-//     console.log("Error", err);
-//   }
-// };
-    
+
   res.status(200).json({ updatedData: campaignData });
-};
+}

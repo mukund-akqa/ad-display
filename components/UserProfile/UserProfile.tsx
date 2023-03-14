@@ -1,10 +1,5 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { TypeFlags } from "typescript";
 import styles from "./UserProfile.module.css";
-import Profile from "../../public/Profile.jpg";
-import Link from "next/link";
-import card4 from "../../public/card4.jpg";
 import { useRouter } from "next/router";
 import Spinner from "../Spinner/Spinner";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,9 +12,10 @@ const UserProfile = () => {
   const [siteName, setSiteName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const notify = () => toast.success("profile updated successfully",{
-    autoClose:1000
-  });
+  const notify = () =>
+    toast.success("profile updated successfully", {
+      autoClose: 1000,
+    });
   useEffect(() => {
     fetch("/api/UserProfile/getUser", {
       method: "POST",
@@ -61,11 +57,10 @@ const UserProfile = () => {
       .then((res) => {
         res.json().then((data) => {
           setIsLoading(false);
-          notify()
+          notify();
         });
       })
       .catch((e) => console.log(e));
-    // router.push('/account')
   };
   return (
     <div className={styles.userProfile}>
@@ -125,7 +120,6 @@ const UserProfile = () => {
           </form>
           <ToastContainer />
         </div>
-        {/* <Image src={Profile} alt="form" className={styles.form__image} /> */}
       </div>
     </div>
   );

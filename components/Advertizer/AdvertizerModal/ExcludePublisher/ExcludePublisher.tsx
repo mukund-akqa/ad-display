@@ -39,27 +39,19 @@ const ExcludePublisher = ({
             publisher: publisher,
           },
         }),
-      })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     Excludedata(true)
-        //   });
-        // onClose();
-        .then((res) => {
-          if (res.status === 200) {
-            res.json().then((data) => {
-              console.log(data);
-              Excludedata(true);
-              handleModel();
-            });
-          } else {
-            res.json().then((data) => {
-              setError(true);
-              setErrorMessage(data.error);
-            });
-          }
-        });
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            Excludedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
+      });
     }
   };
   const handleModel = () => {
@@ -89,10 +81,6 @@ const ExcludePublisher = ({
                 onChange={(e) => setPublisher(e.target.value)}
               />
             </div>
-
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Exclude
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

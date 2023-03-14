@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
@@ -21,16 +21,13 @@ export default async function handler(
   );
   console.log(publisher);
   let oldData = doc.data.advertizerProfile.matchingCriteria;
-  //   console.log(oldData);
+
   let ans = oldData.excludePublishers.includes(publisher);
   let check = oldData.includePublishers.includes(publisher);
   if (ans || check) {
-    res
-      .status(400)
-      .json({
-        error:
-          "Publisher already exists either in include or exclude publishers",
-      });
+    res.status(400).json({
+      error: "Publisher already exists either in include or exclude publishers",
+    });
   } else {
     oldData.excludePublishers.push(publisher);
     let query = await faunaClient.query(
@@ -42,6 +39,6 @@ export default async function handler(
         },
       })
     );
-    res.status(200).json({ name: "John Doe" });
+    res.status(200).json({ name: "data" });
   }
 }

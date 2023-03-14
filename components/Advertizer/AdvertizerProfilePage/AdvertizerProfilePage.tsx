@@ -4,9 +4,7 @@ import AddAdvertisement from "../AdvertizerModal/AddAdvertisement/AddAdvertiseme
 import styles from "./AdvertizerProfilePage.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import EditAdvertisment from "../AdvertizerModal/EditAdvertisement/EditAdvertisement";
 import EditAdvertisement from "../AdvertizerModal/EditAdvertisement/EditAdvertisement";
-import Spinner from "../../Spinner/Spinner";
 import Link from "next/link";
 
 type AdvertizerProfilePageProps = {
@@ -63,7 +61,6 @@ const AdvertizerProfilePage = ({
         res.json().then((data) => {
           setAdData(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
@@ -88,34 +85,27 @@ const AdvertizerProfilePage = ({
     });
   };
   useEffect(() => {
-    const fetchData = async () => {
-      await fetch("/api/AdvertizerProfile/Ads/getAds", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    fetch("/api/AdvertizerProfile/Ads/getAds", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: {
+          refId: sessionStorage.getItem("refId"),
+          campaignName: campaignName,
         },
-        body: JSON.stringify({
-          data: {
-            refId: sessionStorage.getItem("refId"),
-            campaignName: campaignName,
-          },
-        }),
-      })
-        .then((data) => data.json())
-        .then((data) => {
-          setAdData(data.adsData);
-        });
-      setDataUpdated(false);
-    };
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 1000);
-    return () => clearTimeout(timer);
+      }),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setAdData(data.adsData);
+      });
+    setDataUpdated(false);
   }, [dataUpdated]);
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
-        {/* <p>AdvertizerProfile/Page Details</p> */}
         <Link href={"/account/advertizer"}>Advertizer Profile</Link>
         <span>{" > "}CampaignDetails</span>
         <div>

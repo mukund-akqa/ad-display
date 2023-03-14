@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import AddCampaign from "../AdvertizerModal/AddCampaign/AddCampaign";
@@ -27,7 +26,6 @@ const AdvertizerProfile = () => {
     setDataUpdated(value);
   };
   const deleteCampaign = async (campaignName: string) => {
-    console.log(campaignName);
     await fetch("/api/AdvertizerProfile/Campaign/deleteCampaign", {
       method: "POST",
       headers: {
@@ -44,7 +42,6 @@ const AdvertizerProfile = () => {
         res.json().then((data) => {
           setCampaignData(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
@@ -75,7 +72,6 @@ const AdvertizerProfile = () => {
     })
       .then((data) => data.json())
       .then((data) => {
-        // console.log("data:", data.CampaignData);
         setCampaignData(data.CampaignData);
         setDataUpdated(false);
       });
@@ -156,15 +152,18 @@ const AdvertizerProfile = () => {
           </table>
           <button
             className={styles.button}
-            onClick={() => {setShowCampaign(true)
-              document.body.style.overflow = "hidden"}}
+            onClick={() => {
+              setShowCampaign(true);
+              document.body.style.overflow = "hidden";
+            }}
           >
             Add Campaign
           </button>
           <AddCampaign
             showCampaign={showCampaign}
-            onClose={() => {setShowCampaign(false)
-              document.body.style.overflow = "scroll"
+            onClose={() => {
+              setShowCampaign(false);
+              document.body.style.overflow = "scroll";
             }}
             campdata={campdata}
           />

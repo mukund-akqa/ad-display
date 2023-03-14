@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
@@ -9,7 +9,10 @@ type Data = {
 type doc = {
   data: any;
 };
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   const { refId } = req.body.data;
 
   let doc: doc = await faunaClient.query(
@@ -17,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   );
 
   let CampaignData = doc.data.advertizerProfile.campaigns;
-//   console.log(CampaignData);
 
   res.status(200).json({ CampaignData: CampaignData });
-};
+}

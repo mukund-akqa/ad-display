@@ -45,13 +45,8 @@ const AddSlot = ({ show, onClose, pageName, slotData }: AddSlotProps) => {
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            console.log(data);
             slotData(true);
             handleModel();
-            // onClose();
-            // setSlotId("");
-            // setSlotHeight("");
-            // setSlotWidth("");
           });
         } else {
           res.json().then((data) => {

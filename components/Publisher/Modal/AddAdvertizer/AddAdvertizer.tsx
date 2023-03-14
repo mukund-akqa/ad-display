@@ -37,28 +37,19 @@ const AddAdvertizer = ({
             advertizer: advertizer,
           },
         }),
-      })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     Includedata(true);
-        //     setAdvertizer("");
-        //   });
-        // onClose();
-        .then((res) => {
-          if (res.status === 200) {
-            res.json().then((data) => {
-              console.log(data);
-              Includedata(true);
-              handleModel();
-            });
-          } else {
-            res.json().then((data) => {
-              setError(true);
-              setErrorMessage(data.error);
-            });
-          }
-        });
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            Includedata(true);
+            handleModel();
+          });
+        } else {
+          res.json().then((data) => {
+            setError(true);
+            setErrorMessage(data.error);
+          });
+        }
+      });
     }
   };
   const handleModel = () => {
@@ -90,10 +81,6 @@ const AddAdvertizer = ({
                 onChange={(e) => setAdvertizer(e.target.value)}
               />
             </div>
-
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Include
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

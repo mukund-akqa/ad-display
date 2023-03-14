@@ -1,19 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
-  campaign?:any
-  error?:string
+  campaign?: any;
+  error?: string;
 };
 
 type doc = {
   data: any;
 };
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>){
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   const { refId, campaignName, landingPageUrl } = req.body.data;
-  console.log(campaignName);
-  console.log(landingPageUrl);
   let doc: doc = await faunaClient.query(
     q.Get(q.Ref(q.Collection("demo_collection"), refId))
   );
@@ -22,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     landingPageUrl: landingPageUrl,
     ads: [],
   };
-  // console.log(campaignDetails);
+
   let oldData = doc.data.advertizerProfile.campaigns;
   let obj = oldData.find((x: any) => x.campaignName == campaignName);
   if (obj) {
@@ -40,4 +41,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     );
     res.status(200).json({ campaign: oldData });
   }
-};
+}

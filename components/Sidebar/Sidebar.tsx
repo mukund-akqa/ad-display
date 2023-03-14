@@ -39,7 +39,7 @@ const Sidebar = () => {
                 icon={faRectangleAd}
                 className={styles.sidebar__container__menu__list__item__icon}
               />
-              <Link href="/account/advertizer">Advertiser Profile</Link>
+              <Link href="/account/advertizer">Advertizer Profile</Link>
             </li>
           </ul>
         </div>

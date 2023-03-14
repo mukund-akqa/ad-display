@@ -1,11 +1,9 @@
-import { style } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import AddSlot from "../Modal/AddSlot/AddSlot";
 import EditSlot from "../Modal/EditSlot/EditSlot";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import styles from "./PublisherProfilepage.module.css";
-import Spinner from "../../Spinner/Spinner";
 import Link from "next/link";
 
 type PublisherProfilePageProps = {
@@ -26,7 +24,6 @@ const PublisherProfilePage = ({
   const [editModal, setEditModal] = useState(false);
   const [dataUpdated, setDataUpdated] = useState(false);
   const [tableData, setTableData] = useState([]);
-
   const [editData, setEditData] = useState({
     slotId: "",
     slotHeight: "",
@@ -39,7 +36,6 @@ const PublisherProfilePage = ({
   };
 
   const onDelete = async (slotId: string) => {
-    console.log("dleete exclude");
     await fetch("/api/PublisherProfile/Slots/deleteSlot", {
       method: "POST",
       headers: {
@@ -57,7 +53,6 @@ const PublisherProfilePage = ({
         res.json().then((data) => {
           setTableData(data.updatedData);
         });
-        // mutate("/api/getPage");
       })
       .catch((e) => console.log(e));
   };
@@ -101,7 +96,6 @@ const PublisherProfilePage = ({
   return (
     <div className={styles.page}>
       <div className={styles.page_container}>
-        {/* <p>PublisherProfile{" > "}Page Details</p> */}
         <Link href={"/account/publisher"}>Publisher Profile</Link>
         <span>{" > "}PageDetails</span>
         <div>
@@ -163,7 +157,6 @@ const PublisherProfilePage = ({
             onClick={() => {
               setShow(true);
               document.body.style.overflow = "hidden";
-              console.log("clicked");
             }}
           >
             Add Slots

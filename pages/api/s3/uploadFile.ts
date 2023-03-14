@@ -9,12 +9,14 @@ const s3 = new S3({
   signatureVersion: "v4",
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse)  {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     let { name, type } = req.body;
     const unique_id = uuid();
-    console.log(name);
-    console.log(type);
+
     const fileParams = {
       Bucket: process.env.S3_BUCKET_NAME,
       Key: `${unique_id}-${name}`,
@@ -26,7 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).json({ url });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ message: err });
   }
-};
+}

@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import styles from "./AddPage.module.css";
 import { Alert } from "@mui/material";
@@ -8,8 +7,6 @@ type AddPageProps = {
   show: boolean;
   onClose: any;
   pageData: any;
-  // error: boolean;
-  // errorMessage: string;
 };
 const AddPage = ({ show, onClose, pageData }: AddPageProps) => {
   const [pageName, setPageName] = useState("");
@@ -42,12 +39,8 @@ const AddPage = ({ show, onClose, pageData }: AddPageProps) => {
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            console.log(data);
             pageData(true);
-            // onClose();
-            // setPageName("");
-            // setPageUrl("");
-            handleModel()
+            handleModel();
           });
         } else {
           res.json().then((data) => {
@@ -98,10 +91,6 @@ const AddPage = ({ show, onClose, pageData }: AddPageProps) => {
                 required
               />
             </div>
-
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-              Add
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>
@@ -111,9 +100,7 @@ const AddPage = ({ show, onClose, pageData }: AddPageProps) => {
           >
             Add Page
           </button>
-          {/* <button className={styles.modal_button} onClick={onClose}>
-            Close
-          </button> */}
+
           <button className={styles.modal_button} onClick={handleModel}>
             Close
           </button>

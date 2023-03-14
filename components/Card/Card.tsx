@@ -15,8 +15,7 @@ const Card = ({ img, title, description }: CardProps) => {
         src={img}
         alt="card"
         className={styles.card__img}
-        width={224}
-        height={176}
+       
       />
       <div className={styles.card__body}>
         <h2 className={styles.card__title}>{title}</h2>

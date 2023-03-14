@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import info2 from "../../public/info2.jpg";
 import styles from "./Info.module.css";
-import { client } from "../../lib/contentfulClient";
+import { client } from "../../utils/contentfulClient";
 const Info = () => {
   const [data, setData] = useState<any>([]);
   const getInfoData = async () => {
@@ -18,14 +16,14 @@ const Info = () => {
   useEffect(() => {
     getInfoData();
   }, []);
-  // console.log("info", data);
 
   return (
     <div className={styles.info__container}>
-      {/* <div className={styles.info__container__image}> */}
-        {/* <Image src={info2} alt="info" width={400} height={350} /> */}
-        <img src={data[0]?.fields.infoImage.fields.file.url} alt="info" className={styles.info__image}/>
-      {/* </div> */}
+      <img
+        src={data[0]?.fields.infoImage.fields.file.url}
+        alt="info"
+        className={styles.info__image}
+      />
       <div className={styles.info__container__text}>
         <h1>{data[0]?.fields.title}</h1>
         <p>{data[0]?.fields.description}</p>

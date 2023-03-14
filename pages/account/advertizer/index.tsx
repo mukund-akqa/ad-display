@@ -1,6 +1,5 @@
 import React from "react";
 import AdvertizerProfile from "../../../components/Advertizer/AdvertizerProfile/AdvertizerProfile";
-
 import Footer from "../../../components/Footer/Footer";
 import Header from "../../../components/Header/Header";
 import Sidebar from "../../../components/Sidebar/Sidebar";
@@ -13,9 +12,7 @@ const index = () => {
       <Header />
       <div className={styles.wrapper}>
         <Sidebar />
-        {/* <Advertizer/> */}
-        {/* <AdvertizerTable/> */}
-        <AdvertizerProfile/>
+        <AdvertizerProfile />
       </div>
       <Footer />
     </>

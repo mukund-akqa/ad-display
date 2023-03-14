@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { client } from "../../lib/contentfulClient";
+import { client } from "../../utils/contentfulClient";
 import styles from "./Content.module.css";
 
 const Content = () => {

@@ -10,16 +10,15 @@ type EditCampaignProps = {
     landingPageUrl: string;
     id: string;
   };
-  campdata:any
+  campdata: any;
 };
 
 const EditCampaign = ({
   editModalCampaign,
   onClose,
   data,
-  campdata
+  campdata,
 }: EditCampaignProps) => {
-  
   if (!editModalCampaign) {
     return null;
   }
@@ -44,8 +43,7 @@ const EditCampaign = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        campdata(true)
+        campdata(true);
       });
     onClose();
   };
@@ -72,7 +70,9 @@ const EditCampaign = ({
               />
             </div>
             <div className={styles.form__input_last}>
-              <label className={styles.form__input__label}>Landing Page Url</label>
+              <label className={styles.form__input__label}>
+                Landing Page Url
+              </label>
               <input
                 type="text"
                 placeholder="Landing Page Url"
@@ -81,9 +81,6 @@ const EditCampaign = ({
                 onChange={(e) => setLandingPageUrl(e.target.value)}
               />
             </div>
-            {/* <button className={styles.modal_button} onClick={handleClick}>
-                Edit
-            </button> */}
           </form>
         </div>
         <div className={styles.modal_footer}>

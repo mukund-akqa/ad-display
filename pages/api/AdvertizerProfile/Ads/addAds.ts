@@ -1,16 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
   CampaignData?: any;
-  error?:string
+  error?: string;
 };
 
 type doc = {
   data: any;
 };
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   const {
     refId,
     campaignName,
@@ -30,11 +33,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     assetHeight,
     assetWidth,
   };
-  //   console.log("doc", doc);
+
   let CampaignData = doc.data.advertizerProfile.campaigns;
-  console.log("CampaignData", CampaignData);
+
   let obj = CampaignData.find((x: any) => x.campaignName == campaignName);
-  console.log(obj);
+
   let ad = obj.ads.find((ad: any) => ad.adId == adId);
 
   let objIndex = CampaignData.findIndex(
@@ -56,4 +59,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     res.status(200).json({ CampaignData: CampaignData });
   }
-};
+}

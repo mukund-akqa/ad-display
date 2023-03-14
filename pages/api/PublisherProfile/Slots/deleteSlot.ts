@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { faunaClient } from "../../../../lib/fauna";
+import { faunaClient } from "../../../../utils/fauna";
 import { query as q } from "faunadb";
 
 type Data = {
@@ -9,7 +9,10 @@ type Data = {
 type doc = {
   data: any;
 };
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>)  {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   const { refId, slotId, pageName } = req.body.data;
 
   let doc: doc = await faunaClient.query(
@@ -18,28 +21,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   let pageData = doc.data.publisherProfile.pages;
   let obj = pageData.find((x: any) => x.pageName == pageName);
-  let index = pageData.indexOf(obj)
-  console.log("Indexx",index)
+  let index = pageData.indexOf(obj);
 
   const updatedData = obj.adSlots.filter((item: any) => item.slotId != slotId);
-//   console.log("updated Data", updatedData);
 
-//   console.log(pageData);
-//   console.log(obj.adSlots)
-//   console.log("obj",obj)
-//   console.log(updatedData)
-  obj.adSlots=updatedData
-  console.log(obj)
+  obj.adSlots = updatedData;
 
+  pageData.slice(index, 1, obj);
 
-    pageData.slice(index,1,obj)
-    console.log(pageData[0])
-  console.log("pageData",pageData)
-//   const newData=pageData.filter((item:any)=>item.pageName!=obj.pageName)
-
-//   newData.push(obj)
-//   console.log("newData",newData)
-    let query = await faunaClient.query(
+  let query = await faunaClient.query(
     q.Update(q.Ref(q.Collection("demo_collection"), refId), {
       data: {
         publisherProfile: {
@@ -48,6 +38,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       },
     })
   );
-  // console.log(doc)
+
   res.status(200).json({ updatedData: updatedData });
-};
+}
